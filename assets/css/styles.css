@@ -1,0 +1,117 @@
+/* ضبط الصفحة لتكون مرنة وتضع كل شيء في المنتصف تماماً */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #F8FAFC;
+    background-image:linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+        url("../images/background.jpg");
+    font-family: Poppins, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* أيقونات الأشجار الكبيرة الشفافة في الزوايا */
+.decor-leaf-top {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    pointer-events: none;
+    color: #10B981;
+    opacity: 0.08; /* شفافة ومريحة للعين */
+}
+.decor-leaf-top i { font-size: 18rem; }
+
+.decor-leaf-bottom {
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    pointer-events: none;
+    color: #10B981;
+    opacity: 0.08;
+}
+.decor-leaf-bottom i { font-size: 15rem; }
+
+/* حاوية العناصر المركزية */
+.splash-container {
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    padding: 20px;
+}
+
+/* تنسيق الأيقونة الرمزية الخضراء الكبيرة في المنتصف */
+.brand-logo i {
+    color: #0da371;
+    font-size: 8rem; /* تكبير الأيقونة لتظهر كلوجو احترافي */
+    filter: drop-shadow(0 10px 15px rgba(16, 185, 129, 0.2));
+    display: inline-block;
+    transform: rotate(20deg);
+    /* margin-bottom: 10px; */
+}
+
+/* خط العناوين الفخم */
+.brand-title {
+    font-family: 'Poppins', sans-serif;
+    color: #0da371;
+    font-size: 3.25rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.slogan-text {
+    color: rgb(72, 72, 72);
+    font-size: 1rem;
+    text-transform:capitalize;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.slogan-sub-text {
+    font-size: 0.88rem;
+    color: rgb(143, 143, 143);
+    margin-top: 4px;
+}
+
+/* شريط التحميل العصري والممتد */
+.progress-wrapper {
+    margin-top: 50px;
+    width: 100%;
+}
+
+.custom-progress {
+    height: 6px;
+    background-color: #E2E8F0;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.custom-progress-bar {
+    height: 100%;
+    background-color: #0da371;
+    width: 0%;
+    border-radius: 20px;
+    transition: width 0.5s ease;
+    /* margin-top: 10px; */
+    /* animation: fillProgress 3s cubic-bezier(0.4, 0, 0.2, 1) forwards; */
+}
+
+.loading-text {
+    color: rgb(72, 72, 72);
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+#percentage-text {
+    color: #0da371;
+    font-weight: 600;
+}
