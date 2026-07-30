@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenNile City - Splash Screen</title>
     
-    <!-- 1. Bootstrap 5 CSS -->
+    <!-- Bootstrap 5 CSS -->
     <link href="https://jsdelivr.net" rel="stylesheet">
     
-    <!-- 2. Google Fonts (Inter & Poppins) -->
-    <link href="https://googleapis.com" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     
-    <!-- 3. Bootstrap Icons -->
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://jsdelivr.net">
     
-    <!-- 4. ربط ملف الـ CSS بالمسار المطلق للمشروع -->
+    <!-- link css, brand icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="/GREENNILE-CITY/assets/css/styles.css">
 </head>
