@@ -1,6 +1,7 @@
 <?php 
 include 'includes/header.php'; 
 ?>
+<link rel="stylesheet" href="/GREENNILE-CITY/assets/css/splash.css">
 
 <div class="splash-container">
     <!-- Brand icon -->
@@ -24,7 +25,7 @@ include 'includes/header.php';
         </div>
     </div>
 </div>
-
+<script src="/GREENNILE-CITY/assets/js/splash.js"></script>
 <?php 
 include 'includes/footer.php'; 
 ?>

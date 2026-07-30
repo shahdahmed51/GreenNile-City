@@ -6,7 +6,8 @@
     <title>GreenNile City - Splash Screen</title>
     
     <!-- Bootstrap 5 CSS -->
-    <link href="https://jsdelivr.net" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" >
+
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,6 +19,6 @@
     
     <!-- link css, brand icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="/GREENNILE-CITY/assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>

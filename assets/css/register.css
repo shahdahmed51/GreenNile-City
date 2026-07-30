@@ -1,0 +1,174 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+/* moshkla el scroll w el height!! */
+.register-container{
+    border-radius: 20px;
+    display:flex;
+    width: 100%;
+    height: 100%;
+}
+
+.register-card{
+    width: 50%;
+    padding: 40px;
+    border: 1.5px solid #e5e7eb;
+    margin: 50px 0 30px 130px;
+    box-shadow: 3px 0px 2.5px  rgb(196, 195, 195);
+    border-radius: 15px;
+}
+
+.register-card h2{
+    color: #1f2937;
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.subtitle{
+    color: #6b7280;
+    margin-bottom: 35px;
+}
+
+.input-group{
+    margin-bottom: 20px;
+}
+
+.input-group label{
+    display: block;
+    font-size: .9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+.input-group input{
+    width: 100%;
+    height: 40px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 0 16px;
+    font-size: .95rem;
+    outline: none;
+    transition: .3s;
+}
+
+.input-group input:focus{
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 3px rgba(46,125,50,.15);
+}
+
+.password-box{
+    position: relative;
+    width: 100%;
+}
+
+.password-box input{
+    width: 100%;
+    height: 48px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 0 45px 0 16px;
+    font-size: .95rem;
+    outline: none;
+}
+
+.eye{
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.checkbox{
+    display: flex;
+    align-items: center;
+    margin: 20px 0 25px;
+}
+
+.checkbox input{
+    width: 16px;
+    height: 16px;
+    margin-right: 3px;
+    accent-color: #2e7d32;
+}
+
+.checkbox label{
+    color: #555;
+    font-size: .9rem;
+}
+
+.register-btn{
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background: #2e7d32;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.register-btn:hover{
+    background: #256728;
+}
+
+.login-link{
+    margin-top: 25px;
+    text-align: center;
+    color: #555;
+}
+
+.login-link a{
+    color: #2e7d32;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-link a:hover{
+    text-decoration: underline;
+}
+
+.image-side{
+    width: 50%;
+    background: #eef7ef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-side img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.icons{
+    margin:0 3px 6px 0;
+}
+/* mn el ai how to make it responsible for mobile */
+@media(max-width:900px){
+
+    .register-container{
+        flex-direction: column;
+    }
+
+    .register-card,
+    .image-side{
+        width: 100%;
+    }
+
+    .image-side{
+        height: 350px;
+    }
+
+    .register-card{
+        padding: 35px;
+    }
+}
