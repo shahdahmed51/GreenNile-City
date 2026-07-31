@@ -115,7 +115,7 @@ include("../includes/header.php");
 
             <p class="login-link">
                 Already have an account?
-                <a href="login.php">Login</a>
+                <a href="../pages/login.php">Login</a>
             </p>
 
         </div>
