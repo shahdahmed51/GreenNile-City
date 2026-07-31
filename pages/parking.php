@@ -1,8 +1,10 @@
-<?php include 'includes/header.php'; ?>
-<?php include 'includes/navbar.php'; ?>
-<?php include 'includes/sidebar.php'; ?>
+<?php $current_page = basename($_SERVER['PHP_SELF']);?>
+<?php include '../includes/header.php'; ?>
+<?php include '../includes/navbar.php'; ?>
+<?php include '../includes/sidebar.php'; ?>
 
-<div class="container mt-4">
+<div class="main-content">
+    <div class="container mt-4">
 
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -102,7 +104,8 @@
     </div>
 
 </div>
+</div>
 
 
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
