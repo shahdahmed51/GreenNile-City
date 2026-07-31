@@ -110,13 +110,11 @@ include("../includes/header.php");
                 <button type="submit" class="register-btn">
                     Register
                 </button>
-
-            </form>
-
-            <p class="login-link">
+                <p class="login-link">
                 Already have an account?
-                <a href="login.php">Login</a>
-            </p>
+                 <a href="../pages/login.php">Login</a>
+                </p>
+            </form>
 
         </div>
 

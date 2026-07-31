@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
             clearInterval(interval);
 
             setTimeout(function () {
-                window.location.href = "login.php";
+                window.location.href = "../pages/login.php";
             }, 3000);
         }
     }, 30); 

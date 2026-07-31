@@ -1,22 +1,28 @@
+/* * {
+  box-sizing: border-box;
+} */
 body{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    /* min-height: 100vh; */
 }
 /* moshkla el scroll w el height!! */
 .register-container{
     border-radius: 20px;
     display:flex;
     width: 100%;
-    height: 100%;
+    height: 110%;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .register-card{
-    width: 50%;
+    box-sizing: border-box;
+    width: 40%;
     padding: 40px;
     border: 1.5px solid #e5e7eb;
-    margin: 50px 0 30px 130px;
+    margin: 40px 0 30px 130px;
     box-shadow: 3px 0px 2.5px  rgb(196, 195, 195);
     border-radius: 15px;
 }
@@ -104,7 +110,7 @@ body{
 }
 
 .register-btn{
-    width: 100%;
+    width: 60%;
     height: 50px;
     border: none;
     border-radius: 10px;
@@ -112,7 +118,11 @@ body{
     color: #fff;
     font-size: 1rem;
     font-weight: 600;
+    display: block;
     cursor: pointer;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;   /* مسافة بسيطة فوق الزرار من آخر عنصر (checkbox) */
     transition: .3s;
 }
 
@@ -121,23 +131,25 @@ body{
 }
 
 .login-link{
-    margin-top: 25px;
+    margin-top: 20px;   /* مسافة بين الزرار واللينك */
     text-align: center;
     color: #555;
+    font-size: .9rem;
 }
 
 .login-link a{
     color: #2e7d32;
     font-weight: 600;
     text-decoration: none;
+    margin-right: 4px;
 }
 
 .login-link a:hover{
     text-decoration: underline;
 }
-
 .image-side{
     width: 50%;
+    height: 100vh;
     background: #eef7ef;
     display: flex;
     justify-content: center;
