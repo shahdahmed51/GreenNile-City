@@ -1,0 +1,113 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    min-height: 100vh;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+h1{
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+.container{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 1000px;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+p{
+    padding: 5px;
+    text-align: center;
+}
+.left{
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    padding: 40px;
+    border-radius: 10px;
+    width: 450px;
+}
+input[type="email"],input[type="password"]{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+input[type="checkbox"]{
+    width: auto;
+    padding: 0;;
+}
+.right img{
+    width: 400px;
+    height: auto;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+button{
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(62, 139, 62);
+    border-radius: 8px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover{
+    background-color: #256628;
+}
+button:active{
+    transform: scale(0.98);
+}
+.remember{
+    display: flex;
+    align-items: center;
+    gap: 70px;
+}
+.check{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+#sign{
+    text-decoration: none;
+    color: rgba(32, 192, 32, 0.84);
+}
+.social-icons{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+}
+.social-icons a{
+    font-size: 30px;
+    text-decoration: none;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fa-google{
+    color: #DB4437;
+}
+.fa-facebook-f{
+    color: #1877F2;
+}
+.fa-apple{
+    color: black;
+}
