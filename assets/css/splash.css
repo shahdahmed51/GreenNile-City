@@ -1,0 +1,86 @@
+body {
+    background-image:linear-gradient(rgba(248, 250, 252, 0.2), rgba(248, 250, 252, 0.3)), 
+        url("../images/background\(splash\).png");
+    background-size: 100%100%;
+    background-position: center;
+    background-repeat: no-repeat; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+    position: relative;
+}
+
+.splash-container {
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    padding: 30px;
+}
+/* icon */
+.brand-logo img{
+    width: 240px;
+    height: 240px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto ;
+}
+.brand-title {
+    color: #398e50;
+    font-size: 3.275rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-top: -20px;
+    /* line-height: 1.1; */
+}
+
+.slogan-text {
+    color: rgb(72, 72, 72);
+    font-size: 1.05rem;
+    text-transform:capitalize;
+    letter-spacing: -1px;
+    font-weight: 600;
+    margin-top: 18px;
+}
+
+.slogan-sub-text {
+    font-size: 0.9rem;
+    color: rgb(143, 143, 143);
+    margin-top: 18px;
+    font-weight: 450;
+}
+
+/* loading bar */
+.progress-wrapper {
+    margin-top: 160px;
+    width: 95%;
+}
+
+.custom-progress {
+    width: 100%;
+    height: 10px;
+    background-color: #d9d9d9;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.custom-progress-bar {
+    height: 100%;
+    background-color: #398e50;
+    width: 0%;
+    border-radius: 20px;
+    transition: width 0.5s ease;
+}
+
+.loading-text {
+    color: rgb(72, 72, 72);
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+#percentage-text {
+    color: rgb(72, 72, 72);
+    font-weight: 600;
+}

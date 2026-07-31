@@ -3,8 +3,8 @@ A Modern Web-Based Community Management System for Residential Compounds in Egyp
 
 ## Team Members
 - Shahd Ahmed
-- Haneen
-- Habiba
+- Haneen Abdallah
+- Habiba Abdelghani
 
 ## Technologies
 - HTML5
