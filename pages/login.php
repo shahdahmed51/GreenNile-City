@@ -57,7 +57,6 @@ include("../includes/header.php");
 
     <div class="right">
         <img src="../assets/images/login.jpeg" alt="house">
-            <img src="../assets/images/login.jpeg" alt="house" style="width:400px;border:5px solid red;">
     </div>
 </div>
 <script src="../assets/js/login.js"></script>
