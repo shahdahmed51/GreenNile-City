@@ -56,7 +56,7 @@ include("../includes/header.php");
     </div>
 
     <div class="right">
-        <img src="../assets/images/login.jpeg" alt="house">
+        <img src="/GREENNILE-CITY/assets/images/login.jpeg" alt="house">
     </div>
 </div>
 <script src="../assets/js/login.js"></script>
