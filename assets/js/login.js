@@ -1,47 +1,46 @@
-let form=document.getElementById("loginForm");
-form.addEventListener("submit",function(e){
+let form = document.getElementById("loginForm");
+let email = document.getElementById("email");
+let password = document.getElementById("password");
+let emailError = document.getElementById("emailError");
+let passwordError = document.getElementById("passwordError");
+let remember = document.getElementById("remember");
 
-    emailError.innerText="";
-    passwordError.innerText="";
 
-    let valid=true;
+form.addEventListener("submit", function (e) {
 
-    if(email.value===""){
-        emailError.innerText="Email is required";
-        valid=false;
+    emailError.innerText = "";
+    passwordError.innerText = "";
+
+    let valid = true;
+
+    if (email.value === "") {
+        emailError.innerText = "Email is required";
+        valid = false;
     }
-    if(password.value===""){
-        passwordError.innerText="Password is required";
-        valid=false;
+
+    if (password.value === "") {
+        passwordError.innerText = "Password is required";
+        valid = false;
     }
-    if(!valid){
+
+    if (!valid) {
         e.preventDefault();
+        return;
     }
 
-});
-let email=document.getElementById("email");
-let password=document.getElementById("password");
-let emailError=document.getElementById("emailError");
-let passwordError=document.getElementById("passwordError");
-let remember=document.getElementById("remember");
-form.addEventListener("submit",function(e){
-    if(email.value!==""&&password.value!==""){
-        if(remember.checked){
-            localStorage.setItem("email",email.value);
-        }
-        alert("Login successful");
-    }
-});
-window.onload=function(){
-    if(localStorage.getItem("email")){
-        email.value=localStorage.getItem("email");
-    }
-}
-let btn = document.getElementById("loginBtn");
-
-let sign = document.getElementById("sign");
-
-sign.addEventListener("click", function (e) {
     e.preventDefault();
+
+    if (remember.checked) {
+        localStorage.setItem("email", email.value);
+    }
+
     window.location.href = "register.php";
+
 });
+
+
+window.onload = function () {
+    if (localStorage.getItem("email")) {
+        email.value = localStorage.getItem("email");
+    }
+};
