@@ -16,10 +16,6 @@
 
     z-index:1000;
 }
-
-
-/* Logo */
-
 .logo{
 
     display:flex;
@@ -34,7 +30,6 @@
     margin-bottom:40px;
 
 }
-
 
 .logo-icon{
 
@@ -53,9 +48,6 @@
 
 }
 
-
-
-/* Menu */
 
 .menu{
 
@@ -114,7 +106,6 @@
 }
 
 
-/* Logout */
 
 .logout{
 

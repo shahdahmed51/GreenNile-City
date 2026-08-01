@@ -122,7 +122,7 @@ body{
     cursor: pointer;
     text-align: center;
     margin: auto;
-    margin-top: 10px;   /* مسافة بسيطة فوق الزرار من آخر عنصر (checkbox) */
+    margin-top: 10px;   
     transition: .3s;
 }
 
@@ -131,7 +131,7 @@ body{
 }
 
 .login-link{
-    margin-top: 20px;   /* مسافة بين الزرار واللينك */
+    margin-top: 20px;   
     text-align: center;
     color: #555;
     font-size: .9rem;
