@@ -1,7 +1,8 @@
 <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
 
 <?php include("../includes/header.php"); ?>
-<?php include("../includes/sidebar.php"); ?>
+<?php include("../includes/sidebar.php");
+ ?>
 <link rel="stylesheet" href="/GREENNILE-CITY/assets/css/residents.css">
 
 <div class="main-content">

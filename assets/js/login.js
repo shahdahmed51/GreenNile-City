@@ -34,7 +34,7 @@ form.addEventListener("submit", function (e) {
         localStorage.setItem("email", email.value);
     }
 
-    window.location.href = "register.php";
+    window.location.href = "http://localhost/GreenNile-City/pages/register.php";
 
 });
 
