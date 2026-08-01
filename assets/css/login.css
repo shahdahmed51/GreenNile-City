@@ -10,34 +10,37 @@ body{
     align-items: center;
 }
 h1{
-    font-size: 45px;
-    margin-bottom: 10px;
+    font-size: 40px;
+    margin-bottom: 8px;
+    font-weight:  700;
 }
 .container{
     display: flex;
     align-items: center;
-    gap: 20px;
-    width: 1000px;
-    padding: 50px;
+    gap: 40px;
+    width: 1150px;
+    padding: 35px;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
 p{
-    padding: 5px;
+    padding: 5px 0;
     text-align: center;
+    font-size: 15px;
+    padding-right: 170px;
 }
 .left{
     border: none;
     box-shadow: 0 0 10px rgba(0,0,0,0.15);
-    padding: 40px;
-    border-radius: 10px;
+    padding: 35px;
+    border-radius: 15px;
     width: 450px;
 }
 input[type="email"],input[type="password"]{
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 10px;
     outline: none;
 }
 input[type="checkbox"]{
@@ -45,8 +48,11 @@ input[type="checkbox"]{
     padding: 0;;
 }
 .right img{
-    width: 400px;
-    height: auto;
+    width: 520px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    display: block;
 }
 form{
     display: flex;
@@ -57,7 +63,7 @@ button{
     width: 100%;
     padding: 10px;
     background-color: rgb(62, 139, 62);
-    border-radius: 8px;
+    border-radius: 10px;
     border: none;
     color: white;
     font-size: 16px;
@@ -101,6 +107,7 @@ button:active{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
 }
 .fa-google{
     color: #DB4437;
@@ -110,4 +117,15 @@ button:active{
 }
 .fa-apple{
     color: black;
+}
+label{
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.remember{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0 20px;
 }
