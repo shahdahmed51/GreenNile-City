@@ -1,6 +1,3 @@
-<script>
-alert("TEST");
-</script>
 <?php
 include("../includes/header.php");
 ?>
@@ -45,7 +42,7 @@ include("../includes/header.php");
 
         <div class="social-icons">
 
-            <a href="#"><i class="fa-brands fa-google"></i></a>
+            <a href="#"><i class="fa-brands sfa-google"></i></a>
             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="#"><i class="fa-brands fa-apple"></i></a>
 
@@ -62,7 +59,17 @@ include("../includes/header.php");
         <img src="/GREENNILE-CITY/assets/images/login.jpeg" alt="house">
     </div>
 </div>
-<script src="/GREENNILE-CITY/assets/js/login.js"></script>
+<!-- <script src="/GREENNILE-CITY/assets/js/login.js"></script> -->
+ <script>
+alert("JS Loaded");
+
+let form = document.getElementById("loginForm");
+
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    window.location.href = "register.php";
+});
+</script>
 
 <?php
 include("../includes/footer.php");
