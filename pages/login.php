@@ -1,3 +1,6 @@
+<script>
+alert("TEST");
+</script>
 <?php
 include("../includes/header.php");
 ?>
