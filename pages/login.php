@@ -62,7 +62,7 @@ include("../includes/header.php");
         <img src="/GREENNILE-CITY/assets/images/login.jpeg" alt="house">
     </div>
 </div>
-<script src="../assets/js/login.js?v=1"></script>
+<script src="/GREENNILE-CITY/assets/js/login.js"></script>
 
 <?php
 include("../includes/footer.php");
