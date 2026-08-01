@@ -1,4 +1,3 @@
-alert("hell")
 let form = document.getElementById("loginForm");
 let email = document.getElementById("email");
 let password = document.getElementById("password");
