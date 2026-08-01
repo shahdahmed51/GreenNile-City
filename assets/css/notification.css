@@ -1,0 +1,105 @@
+.main-content{
+    margin-left: 260px;
+    padding: 30px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+.page-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+.page-header h2{
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+}
+.notification-tabs{
+    display: flex;
+    gap: 10px;
+}
+.notification-tabs button{
+    border: none;
+    background: transparent;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: #6b7280;
+    transition: 0.3s;
+}
+
+.notification-tabs .active{
+    background-color: #198754;
+    color: white;
+}
+.notification-tabs button:hover{
+    background-color: #198754;
+    color: white;
+}
+.mark-read{
+    text-decoration: none;
+    color: #198754;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.mark-read:hover{
+    color: #146c43;
+}
+.notifications-list{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.notification-card{
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+.notification-card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+.icon{
+    width: 50px;
+    height: 50px;
+    background-color: #e8f5ee;
+    color: #198754;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+.notification-content{
+    flex: 1;
+}
+.notification-content h4{
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: #212529;
+}
+.notification-content p{
+    margin-top: 5px;
+    color: #6c757d;
+    font-size: 14px;
+}
+.time{
+    font-size: 13px;
+    color: #9ca3af;
+    white-space: nowrap;
+}
+.notification-card.unread{
+    border-left: 5px solid #198754;
+}
