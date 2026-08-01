@@ -1,15 +1,17 @@
 .parking-circle{
     width:180px;
     height:180px;
-    border:12px solid #198754;
     border-radius:50%;
+    background:
+    conic-gradient(
+        #198754 0deg 240deg,
+        #ffc107 240deg 300deg,
+        #dc3545 300deg 360deg
+    );
     display:flex;
     justify-content:center;
     align-items:center;
-    margin:auto;
-    font-size:32px;
-    font-weight:bold;
-    color:#198754;
+    position:relative;
 }
 
 .status-dot{
@@ -23,9 +25,34 @@
     margin-left: 250px;
     padding: 20px;
 }
+.container{
+   padding-left: 200px;
+}
+.circle-content{
+    width: 140px;
+    height: 140px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+    color:#198754 ;
+}
+.reservation-icon{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+        background:#e8f5e9;
+    color:#198754;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:18px;
+}
 
+.reservation-item{
+    padding:10px 0;
+}
 
-
-/* body{
-    background:red !important;
-} */
