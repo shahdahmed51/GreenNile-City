@@ -50,7 +50,7 @@ include("../includes/header.php");
 
         <p>
             Don't have an account ?
-            <a href="register.php" id="sign">Sign Up</a>
+            <a href="#" id="sign">Sign Up</a>
         </p>
 
     </div>

@@ -38,3 +38,10 @@ window.onload=function(){
     }
 }
 let btn = document.getElementById("loginBtn");
+
+let sign = document.getElementById("sign");
+
+sign.addEventListener("click", function (e) {
+    e.preventDefault();
+    window.location.href = "register.php";
+});
