@@ -1,9 +1,7 @@
 <?php 
 include("../includes/header.php");
 ?>
-<?php 
-include("../includes/sidebar.php");
-?>
+
 <link rel="stylesheet" href="/GREENNILE-CITY/assets/css/register.css">
 <body>
 
