@@ -1,7 +1,4 @@
 <?php
-if(isset($error)){
-    echo "<p class='error'>$error</p>";
-}
 session_start();
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     $email=$_POST["email"];
@@ -12,7 +9,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     else{
         if($email=="admin@gmail.com" && $password=="123456"){
             $_SESSION["user"]=$email;
-            header("Location : register.php");
+            header("Location: register.php");
             exit();
         }
         else{
@@ -21,6 +18,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }
 }
 include("../includes/header.php");
+if(isset($error)){
+    echo "<p class='error'>$error</p>";
+}
 ?>
 
 <link rel="stylesheet" href="/GREENNILE-CITY/assets/css/login.css">
