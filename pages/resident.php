@@ -39,7 +39,7 @@
            <select class="form-select" id="statusFilter">
            <option value="all">All Status</option>
            <option value="active">Active</option>
-           <option value="inactive">Inactive</option>
+           <option value="inactive">Passive</option>
            </select>
 
         <select class="form-select">
