@@ -13,13 +13,8 @@
     padding:25px 20px;
 
     box-shadow:2px 0 15px rgba(0,0,0,0.06);
-
     z-index:1000;
 }
-
-
-/* Logo */
-
 .logo{
 
     display:flex;
@@ -34,7 +29,6 @@
     margin-bottom:40px;
 
 }
-
 
 .logo-icon{
 
@@ -53,9 +47,6 @@
 
 }
 
-
-
-/* Menu */
 
 .menu{
 
@@ -113,17 +104,41 @@
     color:white;
 }
 
+.user-profile{
+    position:absolute;
+    text-decoration: none;
+    bottom:90px;
+    width:calc(100% - 40px);
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    border-radius:12px;
+    background:#374151;
+}
 
-/* Logout */
+.user-profile img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.user-info h4{
+    margin:0;
+    color:white;
+    font-size:15px;
+}
+
+.user-info span{
+    color:#D1D5DB;
+    font-size:13px;
+}
 
 .logout{
-
     position:absolute;
-
     bottom:30px;
-
     width:calc(100% - 40px);
-
 }
 
 
@@ -256,13 +271,34 @@
             </a>
 
         </li>
+        <li class="<?php echo ($current_page == 'notifications.php') ? 'active' : ''; ?>">
+
+          <a href="notifications.php">
+
+           <i class="fa-solid fa-bell"></i>
+
+           Notifications
+
+          </a>
+
+        </li>
 
 
     </ul>
+    <a href="../pages/user.php" class="user-profile">
+
+      <img src="../assets/images/profileimg.jfif" alt="Profileomg.jfif">
+
+      <div class="user-info">
+        <h4>Shahd Ahmed</h4>
+        <span>View profile</span>
+      </div>
+
+    </a>
 
     <div class="logout">
 
-        <a href="#">
+        <a href="logout.php">
 
             <i class="fa-solid fa-right-from-bracket"></i>
 
