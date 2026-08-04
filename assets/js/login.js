@@ -28,19 +28,13 @@ form.addEventListener("submit", function (e) {
         return;
     }
 
-    e.preventDefault();
-
     if (remember.checked) {
         localStorage.setItem("email", email.value);
     }
 
-    window.location.href = "http://localhost/GreenNile-City/pages/register.php";
-
 });
-
-
-window.onload = function () {
-    if (localStorage.getItem("email")) {
-        email.value = localStorage.getItem("email");
-    }
-};
+// window.onload = function () {
+//     if (localStorage.getItem("email")) {
+//         email.value = localStorage.getItem("email");
+//     }
+// };

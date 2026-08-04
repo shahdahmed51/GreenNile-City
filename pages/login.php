@@ -1,4 +1,25 @@
 <?php
+if(isset($error)){
+    echo "<p class='error'>$error</p>";
+}
+session_start();
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+    $email=$_POST["email"];
+    $password=$_POST["password"];
+    if(empty($email)||empty($password)){
+        $error="please fill all fields ";
+    }
+    else{
+        if($email=="admin@gmail.com" && $password=="123456"){
+            $_SESSION["user"]=$email;
+            header("Location : register.php");
+            exit();
+        }
+        else{
+            $error="Invalid email or password ";
+        }
+    }
+}
 include("../includes/header.php");
 ?>
 
@@ -11,7 +32,7 @@ include("../includes/header.php");
 
         <p>Sign in to your account.</p>
 
-        <form action="login.php" method="post" id="loginForm">
+        <form method="POST" id="loginForm">
 
             <label>Email or Phone</label>
 
@@ -28,7 +49,7 @@ include("../includes/header.php");
             <div class="remember">
 
                 <div class="check">
-                    <input type="checkbox" id="remember">
+                    <input type="checkbox" id="remember" name="remember">
                     <label for="remember">Remember me</label>
                 </div>
 
@@ -42,8 +63,8 @@ include("../includes/header.php");
 
         <div class="social-icons">
 
-            <a href="#"><i class="fa-brands fa-google"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://accounts.google.com" target="_blank"><i class="fa-brands fa-google"></i></a>
+            <a href="https://www.facebook.com/login/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="#"><i class="fa-brands fa-apple"></i></a>
 
         </div>
