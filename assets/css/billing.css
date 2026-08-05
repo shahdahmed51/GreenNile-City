@@ -1,0 +1,53 @@
+.main-content{
+    margin-left: 250px;
+    padding: 25px;
+    background: #f7f9fc;
+    min-height: 100vh;
+}
+.billing-card{
+    border-radius: 15px;
+}
+.billing-circle{
+    width: 170px;
+    height: 170px;
+    margin: auto;
+    border-radius: 50%;
+    background: conic-gradient(
+        #28a745 0% 60%,
+        #ffc107 60% 85%,
+        #dc3545 85% 100%
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.billing-center{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.dot{
+    width: 12px;
+    height: 12px;
+    border-radius:50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+.paid{
+    background: #28a745;
+}
+.pending{
+    background: #ffc107;
+}
+.overdue{
+    background: #dc3545;
+}
+.table td,
+table th{
+    vertical-align: middle;
+}
