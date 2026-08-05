@@ -3,26 +3,26 @@ session_start();
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     $email=$_POST["email"];
     $password=$_POST["password"];
+
     if(empty($email)||empty($password)){
-        $error="please fill all fields ";
+        $error = "please fill all fields";
+    }
+    elseif(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+        $error = "Invaild Email";
+    }
+    elseif(strlen($password)<8){
+        $error = "password must be at laest 8 characters";
     }
     else{
-        if($email=="admin@gmail.com" && $password=="123456"){
-            $_SESSION["user"]=$email;
-            header("Location: register.php");
-            exit();
-        }
-        else{
-            $error="Invalid email or password ";
-        }
-    }
-}
-include("../includes/header.php");
-if(isset($error)){
-    echo "<p class='error'>$error</p>";
-}
-?>
+     $_SESSION["user"]=$email;
 
+     header("Location: register.php");
+    exit();
+    }
+} 
+?>
+<?php include("../includes/header.php"); 
+?>
 <link rel="stylesheet" href="/GREENNILE-CITY/assets/css/login.css">
 <div class="container">
 
@@ -31,7 +31,11 @@ if(isset($error)){
         <h1>Welcome Back !</h1>
 
         <p>Sign in to your account.</p>
-
+        <?php
+        if(isset($error)){
+            echo "<p class='error'>$error</p>";
+        }
+        ?>
         <form method="POST" id="loginForm">
 
             <label>Email or Phone</label>
@@ -69,9 +73,9 @@ if(isset($error)){
 
         </div>
 
-        <p>
+        <p class="stext">
             Don't have an account ?
-            <a href="register.php" id="sign">Sign Up</a>
+            <a href="#" id="sign">Sign Up</a>
         </p>
 
     </div>
@@ -84,5 +88,5 @@ if(isset($error)){
  
 
 <?php
-include("../includes/footer.php");
+include ("../includes/footer.php");
 ?>

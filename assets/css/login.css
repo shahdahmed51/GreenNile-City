@@ -25,9 +25,7 @@ h1{
 }
 p{
     padding: 5px 0;
-    text-align: center;
     font-size: 15px;
-    padding-right: 170px;
 }
 .left{
     border: none;
@@ -77,19 +75,31 @@ button:hover{
 button:active{
     transform: scale(0.98);
 }
-.remember{
-    display: flex;
-    align-items: center;
-    gap: 70px;
+#or{
+    text-align: center;
+    font-size: 10px;
+    color: #666;
+    margin: 15px 0;
 }
 .check{
     display: flex;
     align-items: center;
     gap: 5px;
 }
+.stext{
+    text-align: center;
+    margin-top: 25px;
+    font-size: 16px;
+}
 #sign{
     text-decoration: none;
     color: rgba(32, 192, 32, 0.84);
+    font-weight: 600;
+    margin-left: 5px;
+    display: inline;
+}
+#sign:hover{
+    text-decoration: underline;
 }
 .social-icons{
     display: flex;
@@ -128,4 +138,10 @@ label{
     justify-content: space-between;
     align-items: center;
     margin: 10px 0 20px;
+}
+.error{
+    color: red;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 15px;
 }

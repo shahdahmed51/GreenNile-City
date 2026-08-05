@@ -1,40 +1,11 @@
-let form = document.getElementById("loginForm");
-let email = document.getElementById("email");
-let password = document.getElementById("password");
-let emailError = document.getElementById("emailError");
-let passwordError = document.getElementById("passwordError");
-let remember = document.getElementById("remember");
-
-
-form.addEventListener("submit", function (e) {
-
+form.addEventListener("submit", function () {
     emailError.innerText = "";
     passwordError.innerText = "";
-
-    let valid = true;
-
-    if (email.value === "") {
-        emailError.innerText = "Email is required";
-        valid = false;
-    }
-
-    if (password.value === "") {
-        passwordError.innerText = "Password is required";
-        valid = false;
-    }
-
-    if (!valid) {
-        e.preventDefault();
-        return;
-    }
-
     if (remember.checked) {
         localStorage.setItem("email", email.value);
     }
+    else{
+        localStorage.removeItem("email");
+    }
 
 });
-// window.onload = function () {
-//     if (localStorage.getItem("email")) {
-//         email.value = localStorage.getItem("email");
-//     }
-// };
