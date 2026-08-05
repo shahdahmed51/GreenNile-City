@@ -24,6 +24,7 @@
     <!-- sidebar icons -->
 <link rel="stylesheet" href="../assets/css/parking.css">
 <link rel="stylesheet" href="../assets/css/setting.css">
+<link rel="stylesheet" href="../assets/css/billing.css">
 
 <!-- <link rel="stylesheet" href="/GreenNile-City/assets/css/parking.css">
 <link rel="stylesheet" href="/GreenNile-City/assets/css/setting.css"> -->
