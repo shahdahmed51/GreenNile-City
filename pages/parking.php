@@ -6,15 +6,10 @@
 
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">Parking Overview</h2>
-
-        <a href="add-parking.php" class="btn btn-success">
-            <i class="fa-solid fa-plus"></i>
-            Add Parking
-        </a>
+        <h2 class="fw-bold">Parking Management</h2>
     </div>
 
-    <!-- Statistics Cards -->
+    <!-- Statistics -->
     <div class="row">
 
         <div class="col-md-3 mb-4">
@@ -55,11 +50,12 @@
 
     </div>
 
-    <!-- Second Row -->
+    <!-- Parking Usage + Recent Reservations -->
     <div class="row mt-3">
 
         <!-- Parking Usage -->
         <div class="col-md-7 mb-4">
+
             <div class="card shadow-sm border-0 h-100">
 
                 <div class="card-body">
@@ -68,7 +64,6 @@
 
                     <div class="row">
 
-                        <!-- Circle -->
                         <div class="col-md-6">
 
                             <div class="d-flex justify-content-center align-items-center">
@@ -83,8 +78,7 @@
 
                         </div>
 
-                        <!-- Details -->
-                        <div class="col-md-6 d-flex flex-column justify-content-center h-100">
+                        <div class="col-md-6 d-flex flex-column justify-content-center">
 
                             <div class="mb-3 d-flex align-items-center">
                                 <span class="status-dot bg-success"></span>
@@ -111,17 +105,18 @@
                 </div>
 
             </div>
+
         </div>
 
         <!-- Recent Reservations -->
         <div class="col-md-5 mb-4">
+
             <div class="card shadow-sm border-0 h-100">
 
                 <div class="card-body">
 
                     <h5 class="mb-4">Recent Reservations</h5>
 
-                    <!-- Reservation 1 -->
                     <div class="reservation-item d-flex justify-content-between align-items-center mb-3">
 
                         <div class="d-flex align-items-center">
@@ -145,7 +140,6 @@
 
                     <hr>
 
-                    <!-- Reservation 2 -->
                     <div class="reservation-item d-flex justify-content-between align-items-center mb-3">
 
                         <div class="d-flex align-items-center">
@@ -169,7 +163,6 @@
 
                     <hr>
 
-                    <!-- Reservation 3 -->
                     <div class="reservation-item d-flex justify-content-between align-items-center">
 
                         <div class="d-flex align-items-center">
@@ -190,46 +183,179 @@
                         </small>
 
                     </div>
-                    <div class="text-center mt-3">
-    <a href="reservations.php" class="text-success text-decoration-none fw-semibold">
-        View All <i class="fa-solid fa-arrow-right"></i>
-    </a>
-         </div>
-          </div>
 
+                    <div class="text-center mt-3">
+
+                        <a href="reservations.php"
+                           class="text-success text-decoration-none fw-semibold">
+
+                            View All
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </div>
 
             </div>
+
         </div>
 
     </div>
+        <!-- Parking Management -->
     <div class="row mt-3">
 
-    <!-- Upcoming Reservations -->
-    <div class="col-md-7 mb-4">
+        <div class="col-md-12 mb-4">
 
-        <div class="card shadow-sm border-0">
+            <div class="card shadow-sm border-0">
 
-            <div class="card-body">
+                <div class="card-body">
 
-                <h5 class="mb-4">Upcoming Reservations</h5>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                 <div class="d-flex align-items-center">
-                   <i class="fa-solid fa-car text-success"></i>
-                   <span class="ms-2">A16</span>
-                </div>
-                <small class="text-muted">
-                    14 May, 07:00 AM
-                </small>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        <i class="fa-solid fa-car text-success"></i>
-                        <span class="ms-2">A01</span>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                        <h5 class="mb-0">Parking Management</h5>
+
+                        <a href="add-slot.php" class="btn btn-success">
+                            <i class="fa-solid fa-plus"></i>
+                            Add Slot
+                        </a>
+
                     </div>
-                    <small class="text-muted">
-                       14 May, 11:30 AM
-                    </small>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle">
+
+                            <thead class="table-light">
+
+                                <tr>
+                                    <th>Slot ID</th>
+                                    <th>Zone</th>
+                                    <th>Status</th>
+                                    <th>Vehicle</th>
+                                    <th>Resident</th>
+                                    <th>Actions</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td>A01</td>
+
+                                    <td>Zone A</td>
+
+                                    <td>
+                                        <span class="badge bg-success">
+                                            Available
+                                        </span>
+                                    </td>
+
+                                    <td>ABC-789</td>
+
+                                    <td>Shahd ahmed</td>
+
+                                    <td>
+
+                                        <a href="edit-slot.php"
+                                           class="btn btn-sm btn-primary">
+
+                                            <i class="fa-solid fa-pen"></i>
+
+                                        </a>
+
+                                        <a href="delete-slot.php"
+                                           class="btn btn-sm btn-danger">
+
+                                            <i class="fa-solid fa-trash"></i>
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>A02</td>
+
+                                    <td>Zone A</td>
+
+                                    <td>
+                                        <span class="badge bg-warning text-dark">
+                                            Occupied
+                                        </span>
+                                    </td>
+
+                                    <td>ABC-123</td>
+
+                                    <td>Ahmed Ali</td>
+
+                                    <td>
+
+                                        <a href="edit-slot.php"
+                                           class="btn btn-sm btn-primary">
+
+                                            <i class="fa-solid fa-pen"></i>
+
+                                        </a>
+
+                                        <a href="delete-slot.php"
+                                           class="btn btn-sm btn-danger">
+
+                                            <i class="fa-solid fa-trash"></i>
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>B03</td>
+
+                                    <td>Zone B</td>
+
+                                    <td>
+                                        <span class="badge bg-danger">
+                                            Reserved
+                                        </span>
+                                    </td>
+
+                                    <td>XYZ-458</td>
+
+                                    <td>Sara Mohamed</td>
+
+                                    <td>
+
+                                        <a href="edit-slot.php"
+                                           class="btn btn-sm btn-primary">
+
+                                            <i class="fa-solid fa-pen"></i>
+
+                                        </a>
+
+                                        <a href="delete-slot.php"
+                                           class="btn btn-sm btn-danger">
+
+                                            <i class="fa-solid fa-trash"></i>
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -237,24 +363,6 @@
         </div>
 
     </div>
-
-    <!-- Reserve Parking -->
-    <div class="col-md-5 mb-4">
-     <div class="card shadow-sm border-0 h-100">
-
-        <div class="card-body d-flex justify-content-center align-items-center">
-
-            <a href="#" class="btn btn-success w-100 py-3">
-                <i class="fa-solid fa-square-parking me-2"></i>
-                Reserve Parking
-            </a>
-
-        </div>
-
-    </div>
-    </div>
-
-</div>
 
 </div>
 
