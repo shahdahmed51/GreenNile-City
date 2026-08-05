@@ -42,14 +42,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
             <input id="email" name="email" type="email" placeholder="Enter your email">
 
-            <p id="emailError"></p>
-
             <label>Password</label>
-
-            <input id="password" name="password" type="password" placeholder="Enter your password">
-
-            <p id="passwordError"></p>
-
+           <input id="password" name="password" type="password" placeholder="Enter your password">
             <div class="remember">
 
                 <div class="check">
