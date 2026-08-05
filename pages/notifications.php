@@ -16,7 +16,7 @@
             <button>Read</button>
         </div>
 
-        <a href="#" class="mark-read">Mark all as read</a>
+        <a href="#" class="mark-read" id="markread">Mark all as read</a>
     </div>
 
     <div class="notifications-list">
