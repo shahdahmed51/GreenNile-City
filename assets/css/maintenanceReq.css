@@ -1,0 +1,263 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main-content-full{
+    padding:10px;
+    background:#f7f9fc;
+    min-height:100vh;
+}
+.page-header{
+    margin-bottom:20px;
+}
+.back-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    margin-bottom:10px;
+    text-decoration:none;
+    color:#198754;
+    font-weight:600;
+}
+.details-container{
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+}
+.left-side{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.right-side{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.request-card,
+.update-card,
+.technician-card,
+.timeline-card{
+    background-color: #fff;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+}
+.card-title{
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.card-title h3{
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+.request-info{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+    
+}
+.info-box{
+    display:flex;
+    flex-direction:column;
+}
+.info-box span:first-child{
+    font-size:14px;
+    color:#888;
+    margin-bottom:6px;
+}
+.info-box p{
+    font-size:17px;
+    font-weight:600;
+    margin:0;
+    color:#222;
+}
+.priority,
+.status{
+    display:inline-block;
+    width:fit-content;
+    padding:7px 16px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:600;
+}
+.priority.high{
+    background:#ffe5e5;
+    color:#d62828;
+}
+.priority.medium{
+    background:#fff3cd;
+    color:#b8860b;
+}
+.priority.low{
+    background:#d1f7d6;
+    color:#198754;
+}
+.status.pending{
+    background:#fff3cd;
+    color:#b8860b;
+}
+.status.in-progress{
+    background:#dbeafe;
+    color:#2563eb;
+}
+.status.completed{
+    background:#d1f7d6;
+    color:#198754;
+}
+.description{
+    margin-top:35px;
+    border-top:1px solid #eee;
+    padding-top:20px;
+}
+.description h4{
+    margin-bottom:12px;
+}
+.description p{
+    color:#666;
+    line-height:1.8;
+}
+.technician-info{
+    text-align:center;
+}
+.tech-avatar{
+    width:90px;
+    height:90px;
+    margin:auto;
+    border-radius:50%;
+    background:#198754;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:38px;
+}
+.technician-info h4{
+    margin:20px 0 8px;
+}
+.job-title{
+    color:#777;
+    margin-bottom:25px;
+}
+.tech-details{
+    margin-bottom:25px;
+}
+.detail-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:15px;
+    color:#555;
+}
+.detail-row i{
+    color:#198754;
+}
+.contact-btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#198754;
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+.contact-btn:hover{
+    background:#157347;
+}
+.timeline{
+    position: relative;
+    padding-left: 20px;
+}
+.timeline::before{
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #d9d9d9;
+}
+.timeline-item{
+    position: relative;
+    display: flex;
+    gap: 18px;
+    margin-bottom: 30px;
+}
+.timeline-dot{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #cfcfcf;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+}
+.timeline-dot.active{
+    background: #198754;
+}
+.timeline-content h5{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+.timeline-content small{
+    color: #777;
+}
+.form-group{
+    margin-bottom:20px;
+}
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#444;
+}
+.form-control{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+    transition:.3s;
+}
+.form-control:focus{
+    border-color:#198754;
+}
+.btn-group{
+    display:flex;
+    gap:15px;
+    margin-top:25px;
+}
+.save-btn,
+.close-btn{
+    flex:1;
+    border:none;
+    padding:13px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+.save-btn{
+    background:#198754;
+    color:#fff;
+}
+.save-btn:hover{
+    background:#157347;
+}
+.close-btn{
+    background:#dc3545;
+    color:#fff;
+}
+.close-btn:hover{
+    background:#bb2d3b;
+}

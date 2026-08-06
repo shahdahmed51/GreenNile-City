@@ -3,7 +3,6 @@
 ?>
 <?php include("../includes/sidebar.php"); ?>
 <link rel="stylesheet" href="/GREENNILE-CITY/assets/css/maintenance.css">
-  
      <div class="main-content">
 
            <div class="page-header">
@@ -128,5 +127,5 @@
              </table>
            </div>
      </div>
- <script src="../assets/js/maintenance.js"></script>
+ <script src="/GreenNile-City/assets/js/maintenance.js"></script>
  <?php include("../includes/footer.php"); ?>
