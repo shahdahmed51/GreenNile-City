@@ -12,7 +12,7 @@
     border-bottom: 1px solid #ddd;
     margin-bottom: 30px;
 }
-.tabs button{
+/* .tabs button{
     background: none;
     border: none;
     font-size: 16px;
@@ -24,7 +24,7 @@
     color: #198754;
     font-weight: bold;
     border-bottom: 3px solid #198754;
-}
+} */
 .settings-card{
     background: #fff;
     border-radius: 12px;
@@ -111,9 +111,48 @@
     box-shadow: 0 0 5px rgba(25,135,84,.3);
     outline: none;
 }
-.tabs button:hover{
+/* .tabs button:hover{
     color: #198754;
-}
+} */
 .save-btn:hover{
     transform: translate(-2px);
+}
+
+
+.tabs{
+    display:flex;
+    gap:15px;
+    margin-bottom:30px;
+    border-bottom: 1px solid #ddd;
+    align-items: center;
+}
+
+.tab{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 12px 20px;
+
+    text-decoration: none;   
+    color: #666;             
+    background: transparent; 
+    border: none;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.tab:hover{
+    color:#198754;
+    text-decoration: none;
+}
+
+.tab.active{
+    color: #198754;
+    font-weight: bold;
+    border-bottom: 3px solid #198754;
+
 }

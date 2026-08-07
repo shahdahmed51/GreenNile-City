@@ -1,0 +1,23 @@
+.main-content{
+    margin-left:250px;
+    padding:25px;
+    background:#f7f9fc;
+    min-height:100vh;
+}
+
+.card{
+    border-radius:15px;
+}
+
+.card img{
+    object-fit:cover;
+    border:4px solid #198754;
+}
+
+.card strong{
+    color:#555;
+}
+
+.btn{
+    border-radius:8px;
+}

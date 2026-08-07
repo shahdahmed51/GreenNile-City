@@ -8,12 +8,20 @@
 
     <!-- Tabs -->
     <div class="tabs">
-        <button class="active">General</button>
-        <button>Security</button>
-        <button>Notifications</button>
-        <button>Appearance</button>
-    </div>
+    <button class="active">General</button>
 
+    <button onclick="location.href='security.php'">
+        Security
+    </button>
+
+    <button onclick="location.href='notification-settings.php'">
+        Notifications
+    </button>
+
+    <button onclick="location.href='appearance.php'">
+        Appearance
+    </button>
+</div>
     <!-- Card -->
     <div class="settings-card">
 
