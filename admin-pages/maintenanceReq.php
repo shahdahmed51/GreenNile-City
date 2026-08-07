@@ -13,7 +13,8 @@ $requests = [
         "assigned"=>"Ahmed Hassan",
         "phone"=>"+20 100 123 4567",
         "email"=>"ahmed@greennile.com",
-        "description"=>"Water leakage has been reported under the kitchen sink."
+        "description"=>"Water leakage has been reported under the kitchen sink.",
+         "image" =>"/GREENNILE-CITY/assets/images/waterReq.jpeg"
     ],
     [
         "id"=>"MR002",
@@ -27,7 +28,8 @@ $requests = [
         "assigned"=>"Mohamed Ali",
         "phone"=>"+20 100 789 123 4567",
         "email"=>"mohamed@greennile.com",
-        "description"=>"The air conditioner is not cooling properly."
+        "description"=>"The air conditioner is not cooling properly.",
+        "image" =>"/GREENNILE-CITY/assets/images/conditionerReq.jpeg"
     ],
     [
         "id"=>"MR003",
@@ -41,7 +43,8 @@ $requests = [
         "assigned"=>"Ali Mohmed",
         "phone"=>"+20 100 891 234 5678",
         "email"=>"ali@greennile.gom",
-        "description"=>"Main parking gate does not open with access cards."
+        "description"=>"Main parking gate does not open with access cards.",
+        "image" =>"/GREENNILE-CITY/assets/images/parkingReq.jpeg"
     ],
     [
         "id"=>"MR004",
@@ -55,7 +58,8 @@ $requests = [
         "assigned"=>"Youssef Samir",
         "phone"=>"+20 100 912 345 6789",
         "email"=>"youssef@greennile.com",
-        "description"=>"Bedroom light keeps flickering."
+        "description"=>"Bedroom light keeps flickering.",
+        "image" =>"/GREENNILE-CITY/assets/images/lightReq.jpeg"
     ],
     [
         "id"=>"MR005",
@@ -69,7 +73,8 @@ $requests = [
         "assigned"=>"Ahmed Mostafa",
         "phone"=>"+20 100 125 378 9647",
         "email"=>"ahmed@greennile.com",
-        "description"=>"Elevator has stopped working since morning."
+        "description"=>"Elevator has stopped working since morning.",
+        "image" =>"/GREENNILE-CITY/assets/images/elevatorReq.jpeg"
     ]
 ];
 $request = null;
@@ -80,8 +85,8 @@ foreach($requests as $item){
     }
 }
 if(!$request){
-    die("Request Not Found");
-}
+  die("Request Not Found");
+ }
 ?>
 <?php include("../includes/header.php"); 
 ?>
@@ -101,9 +106,7 @@ if(!$request){
     <div class="details-container">
         <!---left side--->
         <div class="left-side">
-
             <div class="request-card">
-
                 <div class="card-title">
                     <h3>Request Information</h3>
                 </div>
@@ -142,9 +145,80 @@ if(!$request){
                        <h4>Description</h4>
                        <p><?= $request["description"] ?></p>
                     </div>
-
+                    <?php if(!empty($request["image"])) { ?>
+                    <div class="request-images">
+                    <h4>Request Image</h4>
+                   <div class="images-grid">
+                  <img src="<?= $request["image"] ?>" alt="Request Image">
+                </div>
+                </div>
+               <?php } ?>
             </div>
-            <div class="update-card">
+          </div>
+
+          <!-----middle------>
+           <div class="middle-side">
+            <div class="technician-card">
+                    <div class="card-title">
+                          <h3>Assigned Technicain</h3>
+                    </div>
+                    <div class="technician-info">
+                       <div class="tech-avatar">
+                         <i class="bi bi-person-fill"></i>
+                        </div>
+                         <h4><?= $request["assigned"] ?></h4>
+                          <p class="job-title">
+                                  Maintenance Technician
+                          </p>
+                          <div class="tech-details">
+                         <div class="detail-row">
+                           <i class="bi bi-telephone-fill"></i>
+                           <span><?= $request["phone"] ?></span>
+                         </div>
+                         <div class="detail-row">
+                          <i class="bi bi-envelope-fill"></i>
+                          <span><?= $request["email"] ?></span>
+                         </div>
+                        </div>
+                        <button class="contact-btn">
+                           Contact Technician
+                            </button>
+                        </div>
+                </div>
+                <div class="timeline-card">
+                    <div class="card-title">
+                         <h3>Timeline</h3>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                         <div class="timeline-dot"></div>
+
+                          <div class="timeline-content">
+                                 <h5>Request Submitted</h5>
+                                 <small><?= $request["date"] ?></small>
+                            </div>
+                        </div>
+                      <div class="timeline-item">
+                         <div class="timeline-dot active"></div>
+                         <div class="timeline-content">
+                             <h5>Technician Assigned</h5>
+                             <small>Same Day</small>
+                         </div>
+                        </div>
+                        <div class="timeline-item">
+                           <div class="timeline-dot"></div> 
+                          <div class="timeline-content">
+                              <h5>Status</h5>
+                             <small><?= $request["status"] ?></small>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+
+             <!----right side--->
+             <div class="right-side">
+                 <div class="update-card">
                 <div class="card-title">
                      <h3>Update Status</h3>
                 </div>
@@ -188,70 +262,8 @@ if(!$request){
                 </form>
 
             </div>
-
-        </div>
-             <!----right side--->
-             <div class="right-side">
-                <div class="technician-card">
-                    <div class="card-title">
-                          <h3>Assigned Technicain</h3>
-                    </div>
-                    <div class="technician-info">
-                       <div class="tech-avatar">
-                         <i class="bi bi-person-fill"></i>
-                        </div>
-                         <h4><?= $request["assigned"] ?></h4>
-                          <p class="job-title">
-                                  Maintenance Technician
-                          </p>
-                          <div class="tech-details">
-                         <div class="detail-row">
-                           <i class="bi bi-telephone-fill"></i>
-                           <span><?= $request["phone"] ?></span>
-                         </div>
-                         <div class="detail-row">
-                          <i class="bi bi-envelope-fill"></i>
-                          <span><?= $request["email"] ?></span>
-                         </div>
-                        </div>
-                        <button class="contact-btn">
-                           Contact Technician
-                            </button>
-                        </div>
-                </div>
-
-                <div class="timeline-card">
-                    <div class="card-title">
-                         <h3>Timeline</h3>
-                    </div>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                         <div class="timeline-dot"></div>
-
-                          <div class="timeline-content">
-                                 <h5>Request Submitted</h5>
-                                 <small><?= $request["date"] ?></small>
-                            </div>
-                        </div>
-                      <div class="timeline-item">
-                         <div class="timeline-dot active"></div>
-                         <div class="timeline-content">
-                             <h5>Technician Assigned</h5>
-                             <small>Same Day</small>
-                         </div>
-                        </div>
-                        <div class="timeline-item">
-                           <div class="timeline-dot"></div> 
-                          <div class="timeline-content">
-                              <h5>Status</h5>
-                             <small><?= $request["status"] ?></small>
-                           </div>
-                        </div>
-                    </div>
-                </div>
-
              </div>
-        </div>
+    </div>
 </div>
 
 <script src="/GREENNILE-CITY/assets/js/maintenanceReq.js"></script>

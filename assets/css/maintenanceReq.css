@@ -22,7 +22,7 @@
 }
 .details-container{
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 25px;
 }
 .left-side{
@@ -31,20 +31,39 @@
     flex-direction: column;
     gap: 15px;
 }
+.middle-side{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background-color: #fff;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+} 
 .right-side{
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
-.request-card,
+.request-card{
+    margin-top: -180px;
+}
 .update-card,
-.technician-card,
-.timeline-card{
+.request-card,
+.middle-side{
     background-color: #fff;
     border-radius: 18px;
-    padding: 25px;
+    padding: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,.08);
+}
+.technician-card,
+.timeline-card{
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0;
 }
 .card-title{
     margin-bottom: 25px;
@@ -55,27 +74,46 @@
     margin: 0;
     font-size: 20px;
     font-weight: 600;
+    text-align: center;
+    color: #222;
 }
 .request-info{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:25px;
+    gap:18px 35px;
     
 }
 .info-box{
     display:flex;
     flex-direction:column;
+    text-align: center;
 }
 .info-box span:first-child{
-    font-size:14px;
+    font-size:12px;
     color:#888;
-    margin-bottom:6px;
+    margin-bottom:4px;
 }
 .info-box p{
-    font-size:17px;
-    font-weight:600;
+    font-size:20px;
+    font-weight:700;
     margin:0;
     color:#222;
+}
+.images-grid{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.images-grid img{
+    width: 220px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+.images-grid img{
+    width: 100%;
+    height: 200px;
 }
 .priority,
 .status{
@@ -85,6 +123,7 @@
     border-radius:30px;
     font-size:14px;
     font-weight:600;
+    margin: 0 auto;
 }
 .priority.high{
     background:#ffe5e5;
@@ -111,9 +150,9 @@
     color:#198754;
 }
 .description{
-    margin-top:35px;
+    margin-top:30px;
     border-top:1px solid #eee;
-    padding-top:20px;
+    padding-top:25px;
 }
 .description h4{
     margin-bottom:12px;
