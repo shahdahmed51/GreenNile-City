@@ -114,7 +114,7 @@ $residents = [
                       
                    </td>
                     <td>
-                       <a href="viewResident.php?id=<?= $resident['id'] ?>" class="action-btn view">
+                       <a href="resident-details.php?id=<?= $resident['id'] ?>" class="action-btn view">
                           <i class="bi bi-eye"></i>
                       </a>
                       <a href="edit-Resident.php?id=<?= $resident['id'] ?>" class="action-btn edit">
