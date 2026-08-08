@@ -58,12 +58,10 @@ $residents = [
                 Manage all residents information
             </p>
         </div>
-
         <a href="add-Resident.php" class="btn btn-success add-btn">
             <i class="bi bi-plus-lg"></i>
             Add Resident
         </a>
-
     </div>
 
 </div>

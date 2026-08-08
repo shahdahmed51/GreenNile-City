@@ -1,0 +1,40 @@
+.main-content{
+    margin-left: 250px;
+    padding: 25px;
+    background: #f7f9fc;
+    min-height: 100vh;
+}
+.invoice-card{
+    border-radius: 15px;
+}
+.invoice-header h4{
+    margin-bottom: 5px;
+}
+.invoice-total{
+    width: 350px;
+    margin-left: auto;
+    margin-top: 20px;
+}
+.invoice-total .total{
+    font-size: 20px;
+    color: #198754;
+}
+.btn{
+    border-radius: 8px;
+}
+@media print{
+    .sidebar,
+    .navbar,
+    .btn,
+    .page-title{
+        display:none !important;
+    }
+    .main-content{
+        margin-left: 0;
+        padding: 0;
+        background: white;
+    }
+    .invoice-card{
+        box-shadow: none !important;
+    }
+}

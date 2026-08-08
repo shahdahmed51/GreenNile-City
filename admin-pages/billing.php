@@ -10,10 +10,10 @@
                 <h2 class="fw-bold">Billing</h2>
                 <p class="text-muted">Billing Overview</p>
             </div>
-
-            <button class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> Add Invoice
-            </button>
+<a href="add-invoice.php" class="btn btn-success">
+    <i class="bi bi-plus-circle"></i>
+    Add Invoice
+</a>
         </div>
 
         <!-- Statistics Cards -->
@@ -82,7 +82,11 @@
                             <tbody>
 
                                 <tr>
-                                    <td>INV-2024-01</td>
+                                    <td>
+                             <a href="invoice.php" class="text-success text-decoration-none fw-bold">
+                                     INV-2024-01
+                                          </a>
+                                             </td>
                                     <td>10 May 2024</td>
                                     <td>Maintenance Fee</td>
                                     <td>$850.00</td>
@@ -90,7 +94,10 @@
                                 </tr>
 
                                 <tr>
-                                    <td>INV-2024-02</td>
+                                      <td>
+                             <a href="invoice.php" class="text-success text-decoration-none fw-bold">
+                                     INV-2024-02
+                                          </a>
                                     <td>9 May 2024</td>
                                     <td>Parking Fee</td>
                                     <td>$120.00</td>
@@ -98,7 +105,10 @@
                                 </tr>
 
                                 <tr>
-                                    <td>INV-2024-03</td>
+                                      <td>
+                             <a href="invoice.php" class="text-success text-decoration-none fw-bold">
+                                     INV-2024-03
+                                          </a>
                                     <td>12 Apr 2024</td>
                                     <td>Utilities</td>
                                     <td>$780.00</td>
@@ -106,7 +116,10 @@
                                 </tr>
 
                                 <tr>
-                                    <td>INV-2024-04</td>
+                                      <td>
+                             <a href="invoice.php" class="text-success text-decoration-none fw-bold">
+                                     INV-2024-04
+                                          </a>
                                     <td>6 Apr 2024</td>
                                     <td>Maintenance Fee</td>
                                     <td>$850.00</td>
@@ -114,7 +127,10 @@
                                 </tr>
 
                                 <tr>
-                                    <td>INV-2024-05</td>
+                                      <td>
+                             <a href="invoice.php" class="text-success text-decoration-none fw-bold">
+                                     INV-2024-05
+                                          </a>
                                     <td>4 Jan 2024</td>
                                     <td>Parking Fee</td>
                                     <td>$120.00</td>
