@@ -28,6 +28,9 @@
 <link rel="stylesheet" href="../assets/css/payment.css">
 <link rel="stylesheet" href="../assets/css/resident-detalis.css">
 <link rel="stylesheet" href="../assets/css/edit-resident.css">
+<link rel="stylesheet" href="../assets/css/add-resident.css">
+<link rel="stylesheet" href="../assets/css/invoice.css">
+<!-- <link rel="stylesheet" href="../assets/css/resident-details.css"> -->
 
 <!-- <link rel="stylesheet" href="/GreenNile-City/assets/css/parking.css">
 <link rel="stylesheet" href="/GreenNile-City/assets/css/setting.css"> -->

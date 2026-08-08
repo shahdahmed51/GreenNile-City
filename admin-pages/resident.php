@@ -17,10 +17,10 @@
             </p>
         </div>
 
-        <button class="btn btn-success add-btn">
-            <i class="bi bi-plus-lg"></i>
-            Add Resident
-     </button>
+        <a href="add-resident.php" class="btn btn-success add-btn">
+    <i class="bi bi-plus-lg"></i>
+    Add Resident
+</a>
 
     </div>
 

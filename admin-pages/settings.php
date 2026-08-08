@@ -7,20 +7,24 @@
     <h2 class="page-title">Settings</h2>
 
     <!-- Tabs -->
-    <div class="tabs">
-    <button class="active">General</button>
+    <div class="settings-tabs">
 
-    <button onclick="location.href='security.php'">
+    <a href="settings.php" class="settings-tab active">
+        General
+    </a>
+
+    <a href="security.php" class="settings-tab">
         Security
-    </button>
+    </a>
 
-    <button onclick="location.href='notification-settings.php'">
+    <a href="notification-settings.php" class="settings-tab">
         Notifications
-    </button>
+    </a>
 
-    <button onclick="location.href='appearance.php'">
+    <a href="appearance.php" class="settings-tab">
         Appearance
-    </button>
+    </a>
+
 </div>
     <!-- Card -->
     <div class="settings-card">

@@ -1,18 +1,31 @@
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
 <?php include '../includes/sidebar.php'; ?>
-
+<link rel="stylesheet" href="../assets/css/settings.css">
 <div class="container mt-4">
 
     <h2 class="page-title">Settings</h2>
 
     <!-- Tabs -->
-    <div class="tabs">
-        <a href="settings.php" class="tab">General</a>
-        <a href="security.php" class="tab active">Security</a>
-        <a href="notification-settings.php" class="tab">Notifications</a>
-        <a href="appearance.php" class="tab">Appearance</a>
-    </div>
+    <div class="settings-tabs">
+
+    <a href="settings.php" class="settings-tab">
+        General
+    </a>
+
+    <a href="security.php" class="settings-tab active">
+        Security
+    </a>
+
+    <a href="notification-settings.php" class="settings-tab">
+        Notifications
+    </a>
+
+    <a href="appearance.php" class="settings-tab">
+        Appearance
+    </a>
+
+</div>
 
     <div class="settings-card">
 
