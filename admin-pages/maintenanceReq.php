@@ -265,6 +265,4 @@ if(!$request){
              </div>
     </div>
 </div>
-
-<script src="/GREENNILE-CITY/assets/js/maintenanceReq.js"></script>
  <?php include("../includes/footer.php"); ?>
