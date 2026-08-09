@@ -117,8 +117,8 @@
                                     <a href="maintenanceReq.php?id=<?=$request['id']?>" class="action-btn view">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="#" class="action-btn delete">
-                                        <i class="bi bi-trash"></i>
+                                    <a href="delete-maintenance.php?id=<?= $request['id'] ?>" class="action-btn delete">
+                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </td>
                             </tr>
