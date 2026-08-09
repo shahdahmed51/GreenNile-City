@@ -107,8 +107,5 @@
 }
 .notification-card.unread{
     border-left: 5px solid #198754;
-}
-.unread{
-    border-left: 4px solid #198754;
     background-color: #f8fff9;
 }
