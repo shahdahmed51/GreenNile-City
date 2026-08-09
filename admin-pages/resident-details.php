@@ -16,7 +16,7 @@
                 </p>
             </div>
 
-            <a href="residents.php" class="btn btn-outline-secondary">
+            <a href="resident.php" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i>
                 Back to Residents
             </a>
