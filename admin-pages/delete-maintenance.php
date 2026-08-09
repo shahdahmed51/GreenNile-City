@@ -1,28 +1,28 @@
 <?php
-$residentId = $_GET['id'] ?? 1;
-$residents = [
-    1 => [
-        "name" => "HA",
-        "apartment" => "A-204"
+$requestId = $_GET['id'] ?? 'MR001';
+$requests = [
+    "MR001" => [
+        "id"=>"MR001",
+        "assigned"=>"Ahmed Hassen"
     ],
-    2 => [
-        "name" => "KA",
-        "apartment" => "B-205"
+     "MR002" => [
+        "id" => "MR002",
+        "assigned" => "Habiba Emad"
     ],
-    3 => [
-        "name" => "NM",
-        "apartment" => "A-207"
+    "MR003" => [
+        "id" => "MR003",
+        "assigned" => "Karim Ahmed"
     ],
-    4 => [
-        "name" => "BT",
-        "apartment" => "A-308"
+    "MR004"  => [
+        "id" => "MR004",
+        "assigned" => "Nour Ali"
     ],
-    5 => [
-        "name" => "AS",
-        "apartment" => "B-200"
+    "MR005" => [
+        "id" => "MR005",
+        "assigned" => "Nada Mohmed"
     ]
 ];
-$resident = $residents[$residentId] ?? $residents[1];
+$request = $requests[$requestId] ?? $requests['MR001'];
 include("../includes/header.php");
 ?>
 <?php include("../includes/sidebar.php");
@@ -32,30 +32,30 @@ include("../includes/header.php");
     <div class="delete-card">
         <div class="delete-header">
             <i class="bi bi-trash"></i>
-            <h2>Delete Resident</h2>
+            <h2>Delete Request</h2>
         </div>
         <div class="delete-content">
             <i class="bi bi-exclamation-triangle warning-icon"></i>
             <h3>
-                Are you sure you want to delete this resident?
+                Are you sure you want to delete this Request?
             </h3>
             <p class="resident-details">
-                Resident:
-                <strong><?= $resident['name'] ?></strong>
+                Request:
+                <strong><?= $request['id'] ?></strong>
                 <br>
-                Apartment:
-                <strong><?= $resident['apartment'] ?></strong>
+                Assigned:
+                <strong><?= $request['assigned'] ?></strong>
             </p>
             <div class="delete-actions">
                 <form action="" method="POST">
                     <input
-                        type="hidden" name="id" value="<?= $residentId ?>">
+                        type="hidden" name="id" value="<?= $requestId ?>">
                     <button type="submit" class="delete-confirm-btn">
                         <i class="bi bi-trash"></i>
                         Delete
                     </button>
                 </form>
-                <a href="resident.php" class="cancel-delete-btn">
+                <a href="maintenance.php" class="cancel-delete-btn">
                     Cancel
                 </a>
             </div>

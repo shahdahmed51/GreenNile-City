@@ -82,6 +82,6 @@
 
     </div> 
 </div> 
-<script src="/GREENNILE-CITY/assets/js/notifications.js"></script>
+<script src="/GreenNile-City/assets/js/notifications.js"></script>
 
 <?php include("../includes/footer.php"); ?>
