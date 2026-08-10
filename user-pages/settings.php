@@ -14,15 +14,15 @@
         General
     </a>
 
-    <a href="security.php" class="settings-tab">
+    <a href="../admin-pages/security.php" class="settings-tab">
         Security
     </a>
 
-    <a href="notification-settings.php" class="settings-tab">
+    <a href="../admin-pages/notification-settings.php" class="settings-tab">
         Notifications
     </a>
 
-    <a href="appearance.php" class="settings-tab">
+    <a href="../admin-pages/appearance.php" class="settings-tab">
         Appearance
     </a>
 
