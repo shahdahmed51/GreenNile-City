@@ -258,6 +258,18 @@
 
         </li>
 
+        <li class="<?php echo ($current_page == 'billing.php') ? 'active' : ''; ?>">
+
+            <a href="announcements.php">
+
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+
+                Announcement
+
+            </a>
+
+        </li>
+
 
 
         <li class="<?php echo ($current_page == 'settings.php') ? 'active' : ''; ?>">
