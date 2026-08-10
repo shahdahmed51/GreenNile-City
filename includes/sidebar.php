@@ -258,7 +258,7 @@
 
         </li>
 
-        <li class="<?php echo ($current_page == 'billing.php') ? 'active' : ''; ?>">
+        <li class="<?php echo ($current_page == 'announcements.php') ? 'active' : ''; ?>">
 
             <a href="announcements.php">
 
