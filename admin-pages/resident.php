@@ -4,7 +4,7 @@
 $residents = [
     [
         "id" => 1,
-        "name" => "HA",
+        "name" => "Ahmed Hasssen",
         "apartment" => "A-204",
         "phone" => "+20 100 123 4567",
         "moveIn" => "15 Jan 2025",
@@ -12,7 +12,7 @@ $residents = [
     ],
     [
         "id" => 2,
-        "name" => "KA",
+        "name" => "Habiba Emad",
         "apartment" => "B-205",
         "phone" => "+20 100 123 4567",
         "moveIn" => "1 Aug 2026",
@@ -20,7 +20,7 @@ $residents = [
     ],
     [
         "id" => 3,
-        "name" => "NM",
+        "name" => "Karim Ahmed",
         "apartment" => "A-207",
         "phone" => "+20 107 652 3458",
         "moveIn" => "26 Jul 2025",
@@ -28,7 +28,7 @@ $residents = [
     ],
     [
         "id" => 4,
-        "name" => "BT",
+        "name" => "Nour Ali",
         "apartment" => "A-308",
         "phone" => "+20 155 123 4567",
         "moveIn" => "6 Mar 2025",
@@ -36,7 +36,7 @@ $residents = [
     ],
     [
         "id" => 5,
-        "name" => "AS",
+        "name" => "Nada Mohmed",
         "apartment" => "B-200",
         "phone" => "+20 100 235 7643",
         "moveIn" => "10 Jan 2026",
@@ -45,7 +45,7 @@ $residents = [
 ]; ?>
 <?php include("../includes/sidebar.php");
  ?>
-<link rel="stylesheet" href="/GreenNile-city/assets/css/residents.css">
+<link rel="stylesheet" href="/GreenNile-City/assets/css/residents.css">
 
 <div class="main-content">
    <div class="container-fluid py-4">
@@ -58,7 +58,7 @@ $residents = [
                 Manage all residents information
             </p>
         </div>
-        <a href="add-Resident.php" class="btn btn-success add-btn">
+        <a href="add-resident.php" class="btn btn-success add-btn">
             <i class="bi bi-plus-lg"></i>
             Add Resident
         </a>

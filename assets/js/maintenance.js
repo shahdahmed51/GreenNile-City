@@ -1,5 +1,6 @@
 const searchInput=document.getElementById("searchInput");
 const rows=document.querySelectorAll("tbody tr");
+
 searchInput.addEventListener("input",function(){
     let value=this.value.toLowerCase().trim();
     rows.forEach(function(row){

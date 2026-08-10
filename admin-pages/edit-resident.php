@@ -85,7 +85,7 @@ $resident = $residents[$residentId] ?? $residents[1];
                 <button type="submit" class="update-btn">
                     Update Resident
                 </button>
-                <a href="residents.php" class="cancel-btn">
+                <a href="resident.php" class="cancel-btn">
                     Cancel
                 </a>
             </div>
