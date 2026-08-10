@@ -186,9 +186,9 @@
 
                         </div>
 
-                        <button class="btn btn-success w-100 mt-4">
+                        <a href="../user-pages/payment.php" class="btn btn-success w-100 mb-2">
                             Pay Now
-                        </button>
+                        </a>
 
                     </div>
                 </div>
