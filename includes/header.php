@@ -30,6 +30,7 @@
 <link rel="stylesheet" href="../assets/css/edit-resident.css">
 <link rel="stylesheet" href="../assets/css/add-resident.css">
 <link rel="stylesheet" href="../assets/css/invoice.css">
+<link rel="stylesheet" href="../assets/css/announcement.css">
 <!-- <link rel="stylesheet" href="../assets/css/resident-details.css"> -->
 
 <!-- <link rel="stylesheet" href="/GreenNile-City/assets/css/parking.css">
