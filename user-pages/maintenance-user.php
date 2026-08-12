@@ -1,14 +1,17 @@
- <?php $current_page = basename($_SERVER['PHP_SELF']);?>
+<?php $current_page = basename($_SERVER['PHP_SELF']);?>
 <?php include("../includes/header.php"); 
 ?>
-<?php include("../includes/sidebar.php"); ?>
-<link rel="stylesheet" href="/GreenNile-City/assets/css/maintenance.css">
+<?php include("../includes/user-sidebar.php"); ?>
+<link rel="stylesheet" href="/GREENNILE-CITY/assets/css/maintenance.css">
      <div class="main-content">
+
            <div class="page-header">
-            <h2>Maintenance Requests</h2>
-            <p>View and maintenance requests.</p>
+            <h2> My Maintenance Requests</h2>
+            <p>View and track your maintenance requests.</p>
            </div>
+
            <div class="maintenance-card">
+
             <div class="top-bar">
 
                 <div class="search-box">
@@ -23,10 +26,10 @@
                     <option value="completed">Completed</option>
                 </select>
 
-                <a href="add-maintenanceAdmin.php" class="new-btn">
-                   <i class="bi bi-plus-lg"></i>
-                    New Request
-                </a>
+                <a href="add-maintenanceUser.php" class="new-btn">
+                    <i class="bi bi-plus-lg"></i>
+                     New Request
+               </a>
             </div>
 
             <?php
@@ -111,11 +114,8 @@
                                 <td><?=$request["date"]?></td>
                                 <td><?=$request["assigned"]?></td>
                                 <td>
-                                    <a href="maintenanceReq.php?id=<?=$request['id']?>" class="action-btn view">
+                                    <a href="maintenanceReq-user.php?id=<?=$request['id']?>" class="action-btn view">
                                         <i class="bi bi-eye"></i>
-                                    </a>
-                                    <a href="delete-maintenance.php?id=<?= $request['id'] ?>" class="action-btn delete">
-                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </td>
                             </tr>

@@ -223,44 +223,96 @@ if(!$request){
                      <h3>Update Status</h3>
                 </div>
                 <form action="" method="post">
-                  <div class="form-group">
-                  <label>Update Status</label>
-                     <select class="form-control">
-                           <option>Pending</option>
-                           <option selected>In Progress</option>
-                           <option>Completed</option>
-                     </select>
 
-                    </div>
-                   <div class="form-group">
-                   <label>Assign Technician</label>
-                  <select class="form-control">
-                          <option>Ahmed Hassan</option>
-                          <option>Mohamed Ali</option>
-                          <option>Omar Khaled</option>
-                         <option>Youssef Samir</option>
-                         <option>Ahmed Mostafa</option>
-                    </select>
-                   </div>
-                  <div class="form-group">
-                      <label>Notes</label>
-                     <textarea class="form-control" rows="5"
-                       placeholder="Write your notes here..."></textarea>
-                  </div>
-                 <div class="btn-group">
-                     <button type="submit" class="save-btn">
-                         <i class="bi bi-check-circle"></i>
-                              Save Changes
-                      </button>
-                      <button type="button" class="close-btn">
-                            <i class="bi bi-x-circle"></i>
-                            Close Request
-                       </button>
+    <div class="form-group">
+        <label>Update Status</label>
 
-                  </div>
+        <select name="status" class="form-control">
 
-                </form>
+            <option value="Pending"
+                <?= $request["status"] == "Pending" ? "selected" : "" ?>>
+                Pending
+            </option>
 
+            <option value="In Progress"
+                <?= $request["status"] == "In Progress" ? "selected" : "" ?>>
+                In Progress
+            </option>
+
+            <option value="Completed"
+                <?= $request["status"] == "Completed" ? "selected" : "" ?>>
+                Completed
+            </option>
+
+        </select>
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Assign Technician</label>
+
+        <select name="technician" class="form-control">
+
+            <option value="Ahmed Hassan"
+                <?= $request["assigned"] == "Ahmed Hassan" ? "selected" : "" ?>>
+                Ahmed Hassan
+            </option>
+
+            <option value="Mohamed Ali"
+                <?= $request["assigned"] == "Mohamed Ali" ? "selected" : "" ?>>
+                Mohamed Ali
+            </option>
+
+            <option value="Omar Khaled"
+                <?= $request["assigned"] == "Omar Khaled" ? "selected" : "" ?>>
+                Omar Khaled
+            </option>
+
+            <option value="Youssef Samir"
+                <?= $request["assigned"] == "Youssef Samir" ? "selected" : "" ?>>
+                Youssef Samir
+            </option>
+
+            <option value="Ahmed Mostafa"
+                <?= $request["assigned"] == "Ahmed Mostafa" ? "selected" : "" ?>>
+                Ahmed Mostafa
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Notes</label>
+
+        <textarea
+            name="notes"
+            class="form-control"
+            rows="5"
+            placeholder="Write your notes here..."
+        ></textarea>
+
+    </div>
+
+
+    <div class="btn-group">
+
+        <button type="submit" name="save_changes" class="save-btn">
+            <i class="bi bi-check-circle"></i>
+            Save Changes
+        </button>
+
+        <button type="button" class="close-btn">
+            <i class="bi bi-x-circle"></i>
+            Close Request
+        </button>
+
+    </div>
+
+</form>
             </div>
              </div>
     </div>

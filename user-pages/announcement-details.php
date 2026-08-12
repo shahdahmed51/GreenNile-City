@@ -54,7 +54,7 @@ if (isset($announcements[$id])) {
 
 include '../includes/header.php';
 include '../includes/navbar.php';
-include '../includes/sidebar.php';
+include '../includes/user-sidebar.php';
 
 ?>
 

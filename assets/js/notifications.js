@@ -17,8 +17,9 @@ tabs.forEach(function(tab){
         tab.classList.add("active");
         let selectedTab=tab.textContent.trim();
         notifications.forEach(function(card){
+            console.log(selectedTab);
             if(selectedTab ==="All"){
-                card.Style.display="flex";
+                card.style.display="flex";
             }
             else if(selectedTab ==="Unread"){
                 if(card.classList.contains("unread")){
