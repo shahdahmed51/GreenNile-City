@@ -17,68 +17,137 @@
             <div class="col-lg-8">
 
                 <div class="card shadow-sm border-0">
-
                     <div class="card-body">
 
                         <h4 class="fw-bold mb-4">Payment Details</h4>
 
-                        <div class="mb-3">
-                            <label class="form-label">Amount</label>
-                            <input type="text" class="form-control" value="$1,250" readonly>
-                        </div>
+                        <form action="process-payment.php" method="POST">
 
-                        <div class="mb-3">
-                            <label class="form-label">Payment Method</label>
+                            <!-- Amount -->
+                            <div class="mb-3">
+                                <label class="form-label">Amount</label>
 
-                            <select class="form-select">
-                                <option>Visa</option>
-                                <option>MasterCard</option>
-                                <option>Cash</option>
-                            </select>
-                        </div>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    value="$1,250"
+                                    readonly
+                                >
 
-                        <div class="mb-3">
-                            <label class="form-label">Card Holder Name</label>
-                            <input type="text" class="form-control" placeholder="Enter card holder name">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Card Number</label>
-                            <input type="text" class="form-control" placeholder="**** **** **** ****">
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Expiry Date</label>
-                                <input type="month" class="form-control">
+                                <input
+                                    type="hidden"
+                                    name="amount"
+                                    value="1250"
+                                >
                             </div>
 
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">CVV</label>
-                                <input type="password" class="form-control" placeholder="***">
+                            <!-- Payment Method -->
+                            <div class="mb-3">
+                                <label class="form-label">Payment Method</label>
+
+                                <select
+                                    name="payment_method"
+                                    class="form-select"
+                                    required
+                                >
+                                    <option value="">Select Payment Method</option>
+                                    <option value="Visa">Visa</option>
+                                    <option value="MasterCard">MasterCard</option>
+                                    <option value="Cash">Cash</option>
+                                </select>
                             </div>
 
-                        </div>
+                            <!-- Card Holder Name -->
+                            <div class="mb-3">
+                                <label class="form-label">Card Holder Name</label>
 
-                        <a href="payment-success.php" class="btn btn-success w-100">
-                            Confirm Payment
-                        </a>
+                                <input
+                                    type="text"
+                                    name="card_holder"
+                                    class="form-control"
+                                    placeholder="Enter card holder name"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Card Number -->
+                            <div class="mb-3">
+                                <label class="form-label">Card Number</label>
+
+                                <input
+                                    type="text"
+                                    name="card_number"
+                                    class="form-control"
+                                    placeholder="**** **** **** ****"
+                                    maxlength="19"
+                                >
+                            </div>
+
+                            <div class="row">
+
+                                <!-- Expiry Date -->
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        Expiry Date
+                                    </label>
+
+                                    <input
+                                        type="month"
+                                        name="expiry_date"
+                                        class="form-control"
+                                    >
+
+                                </div>
+
+                                <!-- CVV -->
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        CVV
+                                    </label>
+
+                                    <input
+                                        type="password"
+                                        name="cvv"
+                                        class="form-control"
+                                        placeholder="***"
+                                        maxlength="3"
+                                    >
+
+                                </div>
+
+                            </div>
+
+                            <!-- Confirm Payment -->
+                            <!-- <button
+                                type="submit"
+                                class="btn btn-success w-100"
+                            >
+                                Confirm Payment
+                            </button> -->
+                             <a href="payment-success.php"
+                             class="btn btn-success w-100">
+                             Confirm Payment
+
+                             </a>
+                        </form>
 
                     </div>
-
                 </div>
 
             </div>
 
-            <!-- Summary -->
+            <!-- Payment Summary -->
             <div class="col-lg-4">
 
                 <div class="card shadow-sm border-0">
 
                     <div class="card-body">
 
-                        <h5 class="fw-bold mb-4">Payment Summary</h5>
+                        <h5 class="fw-bold mb-4">
+                            Payment Summary
+                        </h5>
 
                         <div class="d-flex justify-content-between mb-3">
                             <span>Maintenance</span>
@@ -99,7 +168,10 @@
 
                         <div class="d-flex justify-content-between">
                             <h5>Total</h5>
-                            <h5 class="text-success">$1,250</h5>
+
+                            <h5 class="text-success">
+                                $1,250
+                            </h5>
                         </div>
 
                     </div>
