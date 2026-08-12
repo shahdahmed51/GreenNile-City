@@ -1,102 +1,335 @@
-<?php $current_page = basename($_SERVER['PHP_SELF']);?>
-<?php 
+<?php
+$current_page = basename($_SERVER['PHP_SELF']);
+
+include "../config/connection.php";
 include("../includes/header.php");
-?>
-<?php 
 include("../includes/sidebar.php");
+
+
+// =========================
+// Dashboard Statistics
+// =========================
+
+// Total Residents
+$result = mysqli_query($conn, "
+    SELECT COUNT(*) AS total 
+    FROM residents
+");
+if (!$result) {
+    die("Query error (residents): " . mysqli_error($conn));
+}
+$row = mysqli_fetch_assoc($result);
+$totalResidents = $row['total'];
+
+
+// Total Maintenance Requests
+$result = mysqli_query($conn, "
+    SELECT COUNT(*) AS total
+    FROM maintenance_requests
+");
+if (!$result) {
+    die("Query error (maintenance total): " . mysqli_error($conn));
+}
+$row = mysqli_fetch_assoc($result);
+$totalMaintenance = $row['total'];
+
+
+// Open Maintenance Requests
+$result = mysqli_query($conn, "
+    SELECT COUNT(*) AS total
+    FROM maintenance_requests
+    WHERE status = 'Open'
+");
+if (!$result) {
+    die("Query error (open maintenance): " . mysqli_error($conn));
+}
+$row = mysqli_fetch_assoc($result);
+$openMaintenance = $row['total'];
+
+
+// Monthly Revenue
+$result = mysqli_query($conn, "
+    SELECT COALESCE(SUM(amount), 0) AS total
+    FROM payments
+    WHERE status = 'Paid'
+    AND MONTH(paid_at) = MONTH(CURDATE())
+    AND YEAR(paid_at) = YEAR(CURDATE())
+");
+if (!$result) {
+    die("Query error (monthly revenue): " . mysqli_error($conn));
+}
+$row = mysqli_fetch_assoc($result);
+$monthlyRevenue = $row['total'];
+
+
+// =========================
+// Recent Activities
+// =========================
+
+$activities = mysqli_query($conn, "
+
+    SELECT 
+        'maintenance' AS type,
+        title AS activity,
+        created_at
+    FROM maintenance_requests
+
+    UNION ALL
+
+    SELECT
+        'payment' AS type,
+        CONCAT('Payment received: $', amount) AS activity,
+        created_at
+    FROM payments
+    WHERE status = 'Paid'
+
+    UNION ALL
+
+    SELECT
+        'resident' AS type,
+        CONCAT('New resident registered: ', full_name) AS activity,
+        created_at
+    FROM residents
+
+    UNION ALL
+
+    SELECT
+        'parking' AS type,
+        'Parking reservation' AS activity,
+        created_at
+    FROM parking_reservations
+
+    ORDER BY created_at DESC
+    LIMIT 5
+
+");
+
+if (!$activities) {
+    die("Query error (activities): " . mysqli_error($conn));
+}
+
+
+// =========================
+// Chart Data
+// =========================
+
+
+// Get selected period
+$period = $_GET['period'] ?? 'this_month';
+
+// Set date condition
+if ($period == 'last_month') {
+
+    $dateCondition = "
+        created_at >= DATE_FORMAT(CURRENT_DATE - INTERVAL 1 MONTH, '%Y-%m-01')
+        AND created_at < DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
+    ";
+
+} elseif ($period == 'this_year') {
+
+    $dateCondition = "
+        created_at >= DATE_FORMAT(CURRENT_DATE, '%Y-01-01')
+        AND created_at < DATE_FORMAT(CURRENT_DATE + INTERVAL 1 YEAR, '%Y-01-01')
+    ";
+
+} else {
+
+    // This Month
+    $dateCondition = "
+        created_at >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
+        AND created_at < DATE_FORMAT(CURRENT_DATE + INTERVAL 1 MONTH, '%Y-%m-01')
+    ";
+}
+
+
+// Get maintenance requests for selected period
+$chartQuery = mysqli_query($conn, "
+    SELECT status, COUNT(*) AS total
+    FROM maintenance_requests
+    WHERE $dateCondition
+    GROUP BY status
+");
+
+if (!$chartQuery) {
+    die("Query error (chart data): " . mysqli_error($conn));
+}
+
+
+// Default values
+$chartData = [
+    'Open' => 0,
+    'In Progress' => 0,
+    'Done' => 0,
+    'Canceled' => 0
+];
+
+// Lowercase/trimmed lookup map so DB values like 'open', ' Open ', 'OPEN'
+// still match the keys above instead of silently staying at 0.
+// Also strips underscores (e.g. 'in_progress' -> 'in progress') and
+// normalizes 'cancelled' (British) to 'canceled' (American) so both
+// spellings match the same chart bucket.
+function normalizeStatus($value) {
+    $value = strtolower(trim($value));
+    $value = str_replace('_', ' ', $value);
+    $value = str_replace('cancelled', 'canceled', $value);
+    return $value;
+}
+
+$statusLookup = [];
+foreach ($chartData as $label => $val) {
+    $statusLookup[normalizeStatus($label)] = $label;
+}
+
+
+// Put database values into chart
+while ($row = mysqli_fetch_assoc($chartQuery)) {
+
+    $status = normalizeStatus($row['status']);
+
+    if (isset($statusLookup[$status])) {
+        $label = $statusLookup[$status];
+        $chartData[$label] = (int)$row['total'];
+    }
+}
+
 ?>
+
 <link rel="stylesheet" href="/GREENNILE-CITY/assets/css/dashboard.css">
+
 <body>
-    <div class="main-content">
+
+<div class="main-content">
+
+    <!-- =========================
+         Page Header
+    ========================== -->
 
     <div class="page-header">
+
         <h2>Good Morning, Admin! 👋</h2>
+
         <p>Here's what's happening today.</p>
+
     </div>
 
-    <!-- Cards -->
+
+    <!-- =========================
+         Cards
+    ========================== -->
+
     <div class="cards">
 
+
         <!-- Total Residents -->
+
         <div class="card">
+
             <div class="card-top">
 
                 <h4>Total Residents</h4>
 
             </div>
 
-            <h2>1,248</h2>
-
-            <p class="increase">+12.5%</p>
+            <h2><?= $totalResidents ?></h2>
 
         </div>
 
-        <!-- Maintenance -->
+
+        <!-- Maintenance Requests -->
+
         <div class="card">
 
             <div class="card-top">
 
                 <h4>Maintenance Requests</h4>
 
-                
-
             </div>
 
-            <h2>32</h2>
-
-            <p class="increase">+8.2%</p>
+            <h2><?= $totalMaintenance ?></h2>
 
         </div>
 
+
         <!-- Open Incidents -->
+
         <div class="card">
 
             <div class="card-top">
 
                 <h4>Open Incidents</h4>
+
             </div>
 
-            <h2>18</h2>
-
-            <p class="increase">+6.1%</p>
+            <h2><?= $openMaintenance ?></h2>
 
         </div>
 
-        <!-- Revenue -->
+
+        <!-- Monthly Revenue -->
+
         <div class="card">
 
             <div class="card-top">
+
                 <h4>Monthly Revenue</h4>
+
             </div>
 
-            <h2>$45,230</h2>
-
-            <p class="increase">+15.3%</p>
+            <h2>
+                $<?= number_format($monthlyRevenue, 2) ?>
+            </h2>
 
         </div>
 
     </div>
 
-    <!-- Chart + Activities -->
+
+    <!-- =========================
+         Chart + Activities
+    ========================== -->
+
     <div class="dashboard-grid">
+
+
+        <!-- =========================
+             Chart
+        ========================== -->
 
         <div class="chart">
 
-    <div class="chart-header">
+            <div class="chart-header">
+                <h3>Requests Overview</h3>
 
-        <h3>Requests Overview</h3>
+                <select id="periodSelect" onchange="changePeriod(this.value)">
 
-        <select>
-            <option>This Month</option>
-            <option>Last Month</option>
-            <option>This Year</option>
-        </select>
+    <option value="this_month"
+        <?= $period == 'this_month' ? 'selected' : '' ?>>
+        This Month
+    </option>
 
-    </div>
+    <option value="last_month"
+        <?= $period == 'last_month' ? 'selected' : '' ?>>
+        Last Month
+    </option>
 
-    <canvas id="myChart"></canvas>
+    <option value="this_year"
+        <?= $period == 'this_year' ? 'selected' : '' ?>>
+        This Year
+    </option>
 
-</div>
+</select>
+
+            </div>
+
+
+            <canvas id="myChart"></canvas>
+
+        </div>
+
+
+        <!-- =========================
+             Recent Activities
+        ========================== -->
 
         <div class="activities">
 
@@ -104,49 +337,37 @@ include("../includes/sidebar.php");
 
             <ul>
 
-                <li>
-                    <span class="icon">
+                <?php while ($activity = mysqli_fetch_assoc($activities)): ?>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                        class="bi bi-wrench-adjustable" viewBox="0 0 16 16">
-                        <path d="M16 4.5a4.5 4.5 0 0 1-1.703 3.526L13 5l2.959-1.11q.04.3.041.61" />
-                        <path
-                            d="M11.5 9c.653 0 1.273-.139 1.833-.39L12 5.5 11 3l3.826-1.53A4.5 4.5 0 0 0 7.29 6.092l-6.116 5.096a2.583 2.583 0 1 0 3.638 3.638L9.908 8.71A4.5 4.5 0 0 0 11.5 9" />
-                    </svg>
+                    <li>
 
-                </span>
-                    New maintenance request
-                </li>
+                        <span class="icon">
 
-                <li>
-                    <span class="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                        class="bi bi-cash-coin" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0" />
-                        <path
-                            d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668z" />
-                        <path
-                            d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z" />
-                    </svg>
-                </span>
-                    Payment received
-                </li>
+                            <?php if ($activity['type'] == 'maintenance'): ?>
 
-                <li>
-                    <span class="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                        class="bi bi-people-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
-                    </svg>
-                </span>
-                    New resident registered
-                </li>
-                <li>
-                    <span id="carIcon" class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16"> <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/></svg></span>
-                    Parking reserved
-                </li>
+                                🔧
+
+                            <?php elseif ($activity['type'] == 'payment'): ?>
+
+                                💰
+
+                            <?php elseif ($activity['type'] == 'resident'): ?>
+
+                                👥
+
+                            <?php elseif ($activity['type'] == 'parking'): ?>
+
+                                🚗
+
+                            <?php endif; ?>
+
+                        </span>
+
+                        <?= htmlspecialchars($activity['activity']) ?>
+
+                    </li>
+
+                <?php endwhile; ?>
 
             </ul>
 
@@ -155,7 +376,31 @@ include("../includes/sidebar.php");
     </div>
 
 </div>
+
+
+<!-- =========================
+     Chart.js
+========================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!-- Send PHP data to JavaScript -->
+
+<script>
+
+    const chartData = <?= json_encode($chartData) ?>;
+
+</script>
+
+
+<!-- Dashboard JavaScript -->
+
 <script src="/GREENNILE-CITY/assets/js/dashboard.js"></script>
+
+
+
 </body>
+
+
 <?php include '../includes/footer.php'; ?>
