@@ -2,7 +2,7 @@
 $current_page = basename($_SERVER['PHP_SELF']);
 
 include("../includes/header.php");
-include("../includes/sidebar.php");
+include("../includes/user-sidebar.php");
 ?>
 
 <link rel="stylesheet" href="/GREENNILE-CITY/assets/css/add-maintenance.css">

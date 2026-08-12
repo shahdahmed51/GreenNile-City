@@ -1,7 +1,7 @@
 <?php $current_page = basename($_SERVER['PHP_SELF']);?>
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
-<?php include '../includes/sidebar.php'; ?>
+<?php include '../includes/user-sidebar.php'; ?>
 
 <div class="container mt-4">
 
@@ -14,15 +14,15 @@
         General
     </a>
 
-    <a href="../admin-pages/security.php" class="settings-tab">
+    <a href="../user-pages/user-security.php" class="settings-tab">
         Security
     </a>
 
-    <a href="../admin-pages/notification-settings.php" class="settings-tab">
+    <a href="../user-pages/user-notification-settings.php" class="settings-tab">
         Notifications
     </a>
 
-    <a href="../admin-pages/appearance.php" class="settings-tab">
+    <a href="../user-pages/user-appearance.php" class="settings-tab">
         Appearance
     </a>
 
