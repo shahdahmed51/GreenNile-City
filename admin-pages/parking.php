@@ -73,14 +73,10 @@ $parkingUsage = $totalSlots > 0
 // PARKING SLOTS
 // =====================================
 
-// NOTE: This subquery picks the MOST RECENT reservation ever made for
-// each slot (MAX(reservation_id)), not necessarily an ACTIVE one.
-// If a slot was booked in the past and is now 'available' again,
-// this will still show the old vehicle/resident next to it, which
-// is misleading. If your `reservations` table has a status/end-time
-// column, add a condition here to only match active reservations,
-// e.g. "AND r2.status = 'active'" or a date range check.
-$slots = mysqli_query($conn, '
+// Only pick the most recent ACTIVE reservation per slot (status
+// 'confirmed' or 'pending'). Completed reservations are excluded so a
+// slot that's free again doesn't still show the old vehicle/resident.
+$slots = mysqli_query($conn, "
 
     SELECT
         ps.slot_id,
@@ -97,8 +93,9 @@ $slots = mysqli_query($conn, '
     LEFT JOIN parking_reservations res
         ON res.reservation_id = (
             SELECT MAX(r2.reservation_id)
-            FROM reservations r2
+            FROM parking_reservations r2
             WHERE r2.slot_id = ps.slot_id
+            AND r2.status IN ('confirmed', 'pending')
         )
 
     LEFT JOIN vehicles v
@@ -109,7 +106,7 @@ $slots = mysqli_query($conn, '
 
     ORDER BY ps.slot_id ASC
 
-');
+");
 if (!$slots) {
     die("Query error (parking slots): " . mysqli_error($conn));
 }
@@ -133,7 +130,7 @@ $recentReservations = mysqli_query($conn, "
 
         ps.slot_number
 
-    FROM reservations res
+    FROM parking_reservations res
 
     LEFT JOIN residents r
         ON res.resident_id = r.resident_id
