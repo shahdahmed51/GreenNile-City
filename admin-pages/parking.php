@@ -1,103 +1,366 @@
-<?php $current_page = basename($_SERVER['PHP_SELF']);?>
-<?php include '../includes/header.php'; ?>
-<?php include '../includes/navbar.php'; ?>
-<?php include '../includes/sidebar.php'; ?>
+<?php
+
+$current_page = basename($_SERVER['PHP_SELF']);
+
+include '../config/connection.php';
+include '../includes/header.php';
+include '../includes/navbar.php';
+include '../includes/sidebar.php';
+
+
+// =====================================
+// PARKING STATISTICS
+// =====================================
+
+// Total Slots
+$result = mysqli_query($conn, "
+    SELECT COUNT(*) AS total
+    FROM parking_slots
+");
+if (!$result) {
+    die("Query error (total slots): " . mysqli_error($conn));
+}
+$row = mysqli_fetch_assoc($result);
+$totalSlots = $row['total'];
+
+
+// Available
+$result = mysqli_query($conn, "
+    SELECT COUNT(*) AS total
+    FROM parking_slots
+    WHERE status = 'available'
+");
+if (!$result) {
+    die("Query error (available slots): " . mysqli_error($conn));
+}
+$row = mysqli_fetch_assoc($result);
+$availableSlots = $row['total'];
+
+
+// Occupied
+$result = mysqli_query($conn, "
+    SELECT COUNT(*) AS total
+    FROM parking_slots
+    WHERE status = 'occupied'
+");
+if (!$result) {
+    die("Query error (occupied slots): " . mysqli_error($conn));
+}
+$row = mysqli_fetch_assoc($result);
+$occupiedSlots = $row['total'];
+
+
+// Reserved
+$result = mysqli_query($conn, "
+    SELECT COUNT(*) AS total
+    FROM parking_slots
+    WHERE status = 'reserved'
+");
+if (!$result) {
+    die("Query error (reserved slots): " . mysqli_error($conn));
+}
+$row = mysqli_fetch_assoc($result);
+$reservedSlots = $row['total'];
+
+
+// Parking usage percentage
+$parkingUsage = $totalSlots > 0
+    ? round(($occupiedSlots / $totalSlots) * 100)
+    : 0;
+
+
+// =====================================
+// PARKING SLOTS
+// =====================================
+
+// NOTE: This subquery picks the MOST RECENT reservation ever made for
+// each slot (MAX(reservation_id)), not necessarily an ACTIVE one.
+// If a slot was booked in the past and is now 'available' again,
+// this will still show the old vehicle/resident next to it, which
+// is misleading. If your `reservations` table has a status/end-time
+// column, add a condition here to only match active reservations,
+// e.g. "AND r2.status = 'active'" or a date range check.
+$slots = mysqli_query($conn, '
+
+    SELECT
+        ps.slot_id,
+        ps.slot_number,
+        ps.zone_id,
+        ps.status,
+
+        v.plate_number,
+
+        r.full_name
+
+    FROM parking_slots ps
+
+    LEFT JOIN parking_reservations res
+        ON res.reservation_id = (
+            SELECT MAX(r2.reservation_id)
+            FROM reservations r2
+            WHERE r2.slot_id = ps.slot_id
+        )
+
+    LEFT JOIN vehicles v
+        ON res.vehicle_id = v.vehicle_id
+
+    LEFT JOIN residents r
+        ON res.resident_id = r.resident_id
+
+    ORDER BY ps.slot_id ASC
+
+');
+if (!$slots) {
+    die("Query error (parking slots): " . mysqli_error($conn));
+}
+
+
+// =====================================
+// RECENT RESERVATIONS
+// =====================================
+
+$recentReservations = mysqli_query($conn, "
+
+    SELECT
+
+        res.reservation_id,
+        res.start_time,
+        res.created_at,
+
+        r.full_name,
+
+        v.plate_number,
+
+        ps.slot_number
+
+    FROM reservations res
+
+    LEFT JOIN residents r
+        ON res.resident_id = r.resident_id
+
+    LEFT JOIN vehicles v
+        ON res.vehicle_id = v.vehicle_id
+
+    LEFT JOIN parking_slots ps
+        ON res.slot_id = ps.slot_id
+
+    ORDER BY res.created_at DESC
+
+    LIMIT 5
+
+");
+if (!$recentReservations) {
+    die("Query error (recent reservations): " . mysqli_error($conn));
+}
+
+?>
 
 <div class="container mt-4">
 
-    <!-- Page Header -->
+    <!-- =====================================
+         PAGE HEADER
+    ====================================== -->
+
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">Parking Management</h2>
+
+        <h2 class="fw-bold">
+            Parking Management
+        </h2>
+
     </div>
 
-    <!-- Statistics -->
+
+    <!-- =====================================
+         STATISTICS
+    ====================================== -->
+
     <div class="row">
 
-        <div class="col-md-3 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <p class="text-muted mb-1">Total Slots</p>
-                    <h3 class="fw-bold">320</h3>
-                </div>
-            </div>
-        </div>
+        <!-- Total Slots -->
 
         <div class="col-md-3 mb-4">
+
             <div class="card shadow-sm border-0">
+
                 <div class="card-body">
-                    <p class="text-muted mb-1">Available</p>
-                    <h3 class="text-success fw-bold">82</h3>
+
+                    <p class="text-muted mb-1">
+                        Total Slots
+                    </p>
+
+                    <h3 class="fw-bold">
+                        <?= $totalSlots ?>
+                    </h3>
+
                 </div>
+
             </div>
+
         </div>
 
-        <div class="col-md-3 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <p class="text-muted mb-1">Occupied</p>
-                    <h3 class="text-warning fw-bold">210</h3>
-                </div>
-            </div>
-        </div>
+
+        <!-- Available -->
 
         <div class="col-md-3 mb-4">
+
             <div class="card shadow-sm border-0">
+
                 <div class="card-body">
-                    <p class="text-muted mb-1">Reserved</p>
-                    <h3 class="text-danger fw-bold">28</h3>
+
+                    <p class="text-muted mb-1">
+                        Available
+                    </p>
+
+                    <h3 class="text-success fw-bold">
+                        <?= $availableSlots ?>
+                    </h3>
+
                 </div>
+
             </div>
+
+        </div>
+
+
+        <!-- Occupied -->
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <p class="text-muted mb-1">
+                        Occupied
+                    </p><h3 class="text-warning fw-bold">
+                        <?= $occupiedSlots ?>
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Reserved -->
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <p class="text-muted mb-1">
+                        Reserved
+                    </p>
+
+                    <h3 class="text-danger fw-bold">
+                        <?= $reservedSlots ?>
+                    </h3>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
-    <!-- Parking Usage + Recent Reservations -->
+
+    <!-- =====================================
+         PARKING USAGE + RECENT RESERVATIONS
+    ====================================== -->
+
     <div class="row mt-3">
 
+
         <!-- Parking Usage -->
+
         <div class="col-md-7 mb-4">
 
             <div class="card shadow-sm border-0 h-100">
 
                 <div class="card-body">
 
-                    <h5 class="mb-4">Parking Usage</h5>
+                    <h5 class="mb-4">
+                        Parking Usage
+                    </h5>
+
 
                     <div class="row">
+
+
+                        <!-- Circle -->
 
                         <div class="col-md-6">
 
                             <div class="d-flex justify-content-center align-items-center">
 
                                 <div class="parking-circle">
+
                                     <div class="circle-content">
-                                        66%
+
+                                        <?= $parkingUsage ?>%
+
                                     </div>
+
                                 </div>
 
                             </div>
 
                         </div>
 
+
+                        <!-- Statistics -->
+
                         <div class="col-md-6 d-flex flex-column justify-content-center">
 
-                            <div class="mb-3 d-flex align-items-center">
-                                <span class="status-dot bg-success"></span>
-                                <span class="ms-2">Occupied</span>
-                                <strong class="ms-auto">210</strong>
-                            </div>
 
                             <div class="mb-3 d-flex align-items-center">
-                                <span class="status-dot bg-warning"></span>
-                                <span class="ms-2">Available</span>
-                                <strong class="ms-auto">82</strong>
+
+                                <span class="status-dot bg-success"></span>
+
+                                <span class="ms-2">
+                                    Available
+                                </span>
+
+                                <strong class="ms-auto">
+                                    <?= $availableSlots ?>
+                                </strong>
+
                             </div>
+
+
+                            <div class="mb-3 d-flex align-items-center">
+
+                                <span class="status-dot bg-warning"></span>
+
+                                <span class="ms-2">
+                                    Occupied
+                                </span>
+
+                                <strong class="ms-auto">
+                                    <?= $occupiedSlots ?>
+                                </strong>
+
+                            </div>
+
 
                             <div class="d-flex align-items-center">
+
                                 <span class="status-dot bg-danger"></span>
-                                <span class="ms-2">Reserved</span>
-                                <strong class="ms-auto">28</strong>
+
+                                <span class="ms-2">
+                                    Reserved
+                                </span>
+
+                                <strong class="ms-auto">
+                                    <?= $reservedSlots ?>
+                                </strong>
+
                             </div>
+
 
                         </div>
 
@@ -109,81 +372,95 @@
 
         </div>
 
-        <!-- Recent Reservations -->
+
+
+        <!-- =====================================
+             RECENT RESERVATIONS
+        ====================================== -->
+
         <div class="col-md-5 mb-4">
 
             <div class="card shadow-sm border-0 h-100">
 
                 <div class="card-body">
 
-                    <h5 class="mb-4">Recent Reservations</h5>
+                    <h5 class="mb-4">
+                        Recent Reservations
+                    </h5>
 
-                    <div class="reservation-item d-flex justify-content-between align-items-center mb-3">
 
-                        <div class="d-flex align-items-center">
+                    <?php if (mysqli_num_rows($recentReservations) > 0): ?>
 
-                            <div class="reservation-icon">
-                                <i class="fa-solid fa-car"></i>
+
+                        <?php while ($reservation = mysqli_fetch_assoc($recentReservations)): ?>
+
+
+                            <div class="reservation-item d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center">
+
+
+                                    <div class="reservation-icon">
+
+                                        <i class="fa-solid fa-car"></i>
+
+                                    </div>
+
+
+                                    <div class="ms-3">
+
+                                        <h6 class="mb-1">
+
+                                            <?= htmlspecialchars(
+                                                $reservation['full_name'] ?? '-'
+                                            ) ?>
+
+                                        </h6>
+
+
+                                        <small class="text-muted">
+
+                                            Slot
+                                            <?= htmlspecialchars(
+                                                $reservation['slot_number'] ?? '-'
+                                            ) ?>
+
+                                        </small>
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <small class="text-muted">
+
+                                    <?= date(
+                                        'h:i A',
+                                        strtotime($reservation['start_time'])
+                                    ) ?>
+
+                                </small>
+
+
                             </div>
 
-                            <div class="ms-3">
-                                <h6 class="mb-1">Ahmed Ali</h6>
-                                <small class="text-muted">Slot A01</small>
-                            </div>
 
-                        </div>
+                            <hr>
 
-                        <small class="text-muted">
-                            Today 10:30 AM
-                        </small>
 
-                    </div>
+                        <?php endwhile; ?>
 
-                    <hr>
 
-                    <div class="reservation-item d-flex justify-content-between align-items-center mb-3">
+                    <?php else: ?>
 
-                        <div class="d-flex align-items-center">
 
-                            <div class="reservation-icon">
-                                <i class="fa-solid fa-car"></i>
-                            </div>
+                        <p class="text-muted text-center">
+                            No reservations yet.
+                        </p>
 
-                            <div class="ms-3">
-                                <h6 class="mb-1">Sara Mohamed</h6>
-                                <small class="text-muted">Slot B12</small>
-                            </div>
 
-                        </div>
+                    <?php endif; ?>
 
-                        <small class="text-muted">
-                            Today 11:00 AM
-                        </small>
-
-                    </div>
-
-                    <hr>
-
-                    <div class="reservation-item d-flex justify-content-between align-items-center">
-
-                        <div class="d-flex align-items-center">
-
-                            <div class="reservation-icon">
-                                <i class="fa-solid fa-car"></i>
-                            </div>
-
-                            <div class="ms-3">
-                                <h6 class="mb-1">Omar Hassan</h6>
-                                <small class="text-muted">Slot C08</small>
-                            </div>
-
-                        </div>
-
-                        <small class="text-muted">
-                            Today 01:15 PM
-                        </small>
-
-                    </div>
 
                     <div class="text-center mt-3">
 
@@ -191,11 +468,13 @@
                            class="text-success text-decoration-none fw-semibold">
 
                             View All
+
                             <i class="fa-solid fa-arrow-right"></i>
 
                         </a>
 
                     </div>
+
 
                 </div>
 
@@ -204,7 +483,13 @@
         </div>
 
     </div>
-        <!-- Parking Management -->
+
+
+
+    <!-- =====================================
+         PARKING MANAGEMENT TABLE
+    ====================================== -->
+
     <div class="row mt-3">
 
         <div class="col-md-12 mb-4">
@@ -213,145 +498,235 @@
 
                 <div class="card-body">
 
+
+                    <!-- Header -->
+
                     <div class="d-flex justify-content-between align-items-center mb-4">
 
-                        <h5 class="mb-0">Parking Management</h5>
+                        <h5 class="mb-0">
+                            Parking Management
+                        </h5>
 
-                        <a href="add-slot.php" class="btn btn-success">
+
+                        <a href="add-slot.php"
+                           class="btn btn-success">
+
                             <i class="fa-solid fa-plus"></i>
+
                             Add Slot
+
                         </a>
 
                     </div>
+
+
+
+                    <!-- Table -->
 
                     <div class="table-responsive">
 
                         <table class="table table-hover align-middle">
 
+
                             <thead class="table-light">
 
                                 <tr>
-                                    <th>Slot ID</th>
-                                    <th>Zone</th>
-                                    <th>Status</th>
-                                    <th>Vehicle</th>
-                                    <th>Resident</th>
-                                    <th>Actions</th>
+
+                                    <th>
+                                        Slot ID
+                                    </th>
+
+                                    <th>
+                                        Slot Number
+                                    </th>
+
+                                    <th>
+                                        Zone
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Vehicle
+                                    </th>
+
+                                    <th>
+                                        Resident
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                        </th>
+
                                 </tr>
 
                             </thead>
 
+
+
                             <tbody>
 
-                                <tr>
 
-                                    <td>A01</td>
+                                <?php while ($slot = mysqli_fetch_assoc($slots)): ?>
 
-                                    <td>Zone A</td>
 
-                                    <td>
-                                        <span class="badge bg-success">
-                                            Available
-                                        </span>
-                                    </td>
+                                    <tr>
 
-                                    <td>ABC-789</td>
 
-                                    <td>Shahd ahmed</td>
+                                        <!-- Slot ID -->
 
-                                    <td>
+                                        <td>
 
-                                        <a href="edit-slot.php"
-                                           class="btn btn-sm btn-primary">
+                                            <?= $slot['slot_id'] ?>
 
-                                            <i class="fa-solid fa-pen"></i>
+                                        </td>
 
-                                        </a>
 
-                                        <a href="delete-slot.php"
-                                           class="btn btn-sm btn-danger">
+                                        <!-- Slot Number -->
 
-                                            <i class="fa-solid fa-trash"></i>
+                                        <td>
 
-                                        </a>
+                                            <?= htmlspecialchars(
+                                                $slot['slot_number']
+                                            ) ?>
 
-                                    </td>
+                                        </td>
 
-                                </tr>
 
-                                <tr>
+                                        <!-- Zone -->
 
-                                    <td>A02</td>
+                                        <td>
 
-                                    <td>Zone A</td>
+                                            Zone
+                                            <?= htmlspecialchars(
+                                                $slot['zone_id']
+                                            ) ?>
 
-                                    <td>
-                                        <span class="badge bg-warning text-dark">
-                                            Occupied
-                                        </span>
-                                    </td>
+                                        </td>
 
-                                    <td>ABC-123</td>
 
-                                    <td>Ahmed Ali</td>
+                                        <!-- Status -->
 
-                                    <td>
+                                        <td>
 
-                                        <a href="edit-slot.php"
-                                           class="btn btn-sm btn-primary">
 
-                                            <i class="fa-solid fa-pen"></i>
+                                            <?php if ($slot['status'] == 'available'): ?>
 
-                                        </a>
 
-                                        <a href="delete-slot.php"
-                                           class="btn btn-sm btn-danger">
+                                                <span class="badge bg-success">
 
-                                            <i class="fa-solid fa-trash"></i>
+                                                    Available
 
-                                        </a>
+                                                </span>
 
-                                    </td>
 
-                                </tr>
+                                            <?php elseif ($slot['status'] == 'occupied'): ?>
 
-                                <tr>
 
-                                    <td>B03</td>
+                                                <span class="badge bg-warning text-dark">
 
-                                    <td>Zone B</td>
+                                                    Occupied
 
-                                    <td>
-                                        <span class="badge bg-danger">
-                                            Reserved
-                                        </span>
-                                    </td>
+                                                </span>
 
-                                    <td>XYZ-458</td>
 
-                                    <td>Sara Mohamed</td>
+                                            <?php elseif ($slot['status'] == 'reserved'): ?>
 
-                                    <td>
 
-                                        <a href="edit-slot.php"
-                                           class="btn btn-sm btn-primary">
+                                                <span class="badge bg-danger">
 
-                                            <i class="fa-solid fa-pen"></i>
+                                                    Reserved
 
-                                        </a>
+                                                </span>
 
-                                        <a href="delete-slot.php"
-                                           class="btn btn-sm btn-danger">
 
-                                            <i class="fa-solid fa-trash"></i>
+                                            <?php else: ?>
 
-                                        </a>
 
-                                    </td>
+                                                <span class="badge bg-secondary">
 
-                                </tr>
+                                                    <?= htmlspecialchars(
+                                                        $slot['status']
+                                                    ) ?>
+
+                                                </span>
+
+
+                                            <?php endif; ?>
+
+
+                                        </td>
+
+
+                                        <!-- Vehicle -->
+
+                                        <td>
+
+                                            <?php if (!empty($slot['plate_number'])): ?>
+
+                                                <?= htmlspecialchars(
+                                                    $slot['plate_number']
+                                                ) ?>
+
+                                            <?php else: ?>
+
+                                                -
+
+                                            <?php endif; ?>
+
+                                        </td>
+
+
+                                        <!-- Resident -->
+
+                                        <td>
+
+                                            <?php if (!empty($slot['full_name'])): ?>
+
+                                                <?= htmlspecialchars(
+                                                    $slot['full_name']
+                                                ) ?>
+
+                                            <?php else: ?>
+
+                                                -
+
+                                            <?php endif; ?>
+
+                                        </td>
+
+
+                                        <!-- Actions -->
+
+                                        <td><a href="edit-slot.php?id=<?= $slot['slot_id'] ?>"
+                                               class="btn btn-sm btn-primary">
+
+                                                <i class="fa-solid fa-pen"></i>
+
+                                            </a>
+
+
+                                            <a href="delete-slot.php?id=<?= $slot['slot_id'] ?>"
+                                               class="btn btn-sm btn-danger">
+
+                                                <i class="fa-solid fa-trash"></i>
+
+                                            </a>
+
+
+                                        </td>
+
+
+                                    </tr>
+
+
+                                <?php endwhile; ?>
+
 
                             </tbody>
+
 
                         </table>
 
@@ -366,5 +741,6 @@
     </div>
 
 </div>
+
 
 <?php include '../includes/footer.php'; ?>
