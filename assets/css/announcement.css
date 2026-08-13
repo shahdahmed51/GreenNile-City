@@ -163,3 +163,23 @@
         overflow-x: auto;
     }
 }
+.announcement-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-btn, .delete-btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.edit-btn {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.delete-btn {
+    color: #dc2626;
+    background: #fef2f2;
+}

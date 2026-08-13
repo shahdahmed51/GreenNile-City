@@ -16,12 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST["email"] ?? "");
     $password = $_POST["password"] ?? "";
 
+<<<<<<< HEAD
 
     // ========================================
     // VALIDATION
     // ========================================
 
     if ($email === "" || $password === "") {
+=======
+    if (empty($email) || empty($password)) {
+>>>>>>> ebfbe8eeb7a66946574c8c5e8a47ea2ec2e0df47
 
         $error = "Please fill all fields.";
 
@@ -35,11 +39,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     } else {
 
+<<<<<<< HEAD
+=======
+        $sql = "SELECT user_id, resident_id, username, email, password, role, status
+                FROM users
+                WHERE email = ?
+                LIMIT 1";
+>>>>>>> ebfbe8eeb7a66946574c8c5e8a47ea2ec2e0df47
 
         // ========================================
         // GET USER FROM DATABASE
         // ========================================
 
+<<<<<<< HEAD
         $sql = "
             SELECT
                 user_id,
@@ -62,6 +74,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
         if (!$stmt) {
+=======
+        if (!$stmt) {
+
+            $error = "Database Error: " . mysqli_error($conn);
+
+        } else {
+
+            mysqli_stmt_bind_param($stmt, "s", $email);
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            if (mysqli_num_rows($result) == 0) {
+>>>>>>> ebfbe8eeb7a66946574c8c5e8a47ea2ec2e0df47
 
             $error = "Database Error.";
 
@@ -105,16 +131,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 if ($user["status"] !== "active") {
 
+<<<<<<< HEAD
                     $error =
                         "Your account is not active.";
 
                 } else {
 
+=======
+                    $error = "Your account is not active.";
+
+<<<<<<< HEAD
+                } elseif ($password !== $user["password"]) {
+=======
+                } elseif (!password_verify($password, $user["password"]) && $password !== $user["password"]) {
+>>>>>>> 40803106bbc07b6f92d840af7a2618fa0df7d5c7
+
+                    $error = "Invalid email or password.";
+
+                } else {
+
+                    session_regenerate_id(true);
+>>>>>>> ebfbe8eeb7a66946574c8c5e8a47ea2ec2e0df47
 
                     // ========================================
                     // CHECK PASSWORD
                     // ========================================
 
+<<<<<<< HEAD
                     $password_valid = false;
 
 
@@ -124,6 +167,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                      * 1. Hashed passwords
                      * 2. Old plain-text passwords
                      */
+=======
+                    $ip_address = $_SERVER["REMOTE_ADDR"];
+                    $session_id = session_id();
+
+                    $login_sql = "INSERT INTO login_sessions
+                                  (session_id, user_id, login_time, ip_address)
+                                  VALUES (?, ?, NOW(), ?)";
+>>>>>>> ebfbe8eeb7a66946574c8c5e8a47ea2ec2e0df47
 
 
                     if (
@@ -132,11 +183,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         )["algo"] !== 0
                     ) {
 
+<<<<<<< HEAD
                         $password_valid =
                             password_verify(
                                 $password,
                                 $user["password"]
                             );
+=======
+                        mysqli_stmt_bind_param(
+                            $login_stmt,
+                            "sis",
+                            $session_id,
+                            $user["user_id"],
+                            $ip_address
+                        );
+
+                        mysqli_stmt_execute($login_stmt);
+                        mysqli_stmt_close($login_stmt);
+                    }
+
+                    mysqli_stmt_close($stmt);
+
+                    if ($user["role"] === "resident") {
+
+                        header("Location: ../admin-pages/register.php");
+                        exit();
+
+                    } elseif ($user["role"] === "admin") {
+
+<<<<<<< HEAD
+                        header("Location: ../admin-pages/settings.php");
+=======
+                        header("Location: ../admin-pages/register.php");
+>>>>>>> 40803106bbc07b6f92d840af7a2618fa0df7d5c7
+                        exit();
+>>>>>>> ebfbe8eeb7a66946574c8c5e8a47ea2ec2e0df47
 
                     } else {
 
@@ -530,6 +611,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <p class="stext">
 
             Don't have an account ?
+<<<<<<< HEAD
 
             <a
                 href="register.php"
@@ -538,6 +620,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 Sign Up
             </a>
 
+=======
+            <a href="../admin-pages/register.php" id="sign">Sign Up</a>
+>>>>>>> ebfbe8eeb7a66946574c8c5e8a47ea2ec2e0df47
         </p>
 
 

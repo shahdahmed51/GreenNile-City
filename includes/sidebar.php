@@ -302,7 +302,7 @@
       <img src="../assets/images/profileimg.jfif" alt="Profileomg.jfif">
 
       <div class="user-info">
-        <h4>Shahd Ahmed</h4>
+        <h4>Admin</h4>
         <span>View profile</span>
       </div>
 
