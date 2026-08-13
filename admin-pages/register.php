@@ -112,7 +112,7 @@ include("../includes/header.php");
                 </button>
                 <p class="login-link">
                 Already have an account?
-                 <a href="../pages/login.php">Login</a>
+                 <a href="../admin-pages/login.php">Login</a>
                 </p>
             </form>
 

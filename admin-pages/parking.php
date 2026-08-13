@@ -8,6 +8,32 @@ include '../includes/navbar.php';
 include '../includes/sidebar.php';
 
 
+if (isset($_GET['deleted']) && $_GET['deleted'] === 'success') {
+
+    echo '
+    <div class="container mt-3">
+
+        <div class="alert alert-success alert-dismissible fade show">
+
+            <i class="fa-solid fa-circle-check me-2"></i>
+
+            Reservation deleted successfully.
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
+
+    </div>
+    ';
+
+}
+
+
+
 // =====================================
 // PARKING STATISTICS
 // =====================================

@@ -262,7 +262,7 @@
 
     <div class="logout">
 
-        <a href="logout.php">
+        <a href="../admin-pages/logout.php">
 
             <i class="fa-solid fa-right-from-bracket"></i>
 

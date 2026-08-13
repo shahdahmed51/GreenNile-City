@@ -3,7 +3,7 @@
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = "greennile.sql";
+$database = "greennile";
 
 $conn = mysqli_connect($host, $username, $password, $database);
 
