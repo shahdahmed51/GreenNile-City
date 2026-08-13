@@ -3,7 +3,6 @@ session_start();
 
 require_once "../config/connection.php";
 
-
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -11,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"] ?? "");
     $password = $_POST["password"] ?? "";
 
-    // Validation
     if (empty($email) || empty($password)) {
 
         $error = "Please fill all fields.";
@@ -22,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
 
-        // Find user by email
         $sql = "SELECT user_id, resident_id, username, email, password, role, status
                 FROM users
                 WHERE email = ?
@@ -30,16 +27,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt = mysqli_prepare($conn, $sql);
 
-if (!$stmt) {
+        if (!$stmt) {
 
-    $error = "Database Error: " . mysqli_error($conn);
+            $error = "Database Error: " . mysqli_error($conn);
 
-} else {
+        } else {
 
-    mysqli_stmt_bind_param($stmt, "s", $email);
-    mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_param($stmt, "s", $email);
+            mysqli_stmt_execute($stmt);
 
-    $result = mysqli_stmt_get_result($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+
             if (mysqli_num_rows($result) == 0) {
 
                 $error = "Invalid email or password.";
@@ -48,20 +46,16 @@ if (!$stmt) {
 
                 $user = mysqli_fetch_assoc($result);
 
-                // Check account status
                 if ($user["status"] !== "active") {
 
                     $error = "Your account is not active.";
 
-                }
-                // Temporary password check
-                elseif ($password !== $user["password"]) {
+                } elseif (!password_verify($password, $user["password"]) && $password !== $user["password"]) {
 
                     $error = "Invalid email or password.";
 
                 } else {
 
-                    // Login successful
                     session_regenerate_id(true);
 
                     $_SESSION["user_id"] = $user["user_id"];
@@ -70,13 +64,9 @@ if (!$stmt) {
                     $_SESSION["email"] = $user["email"];
                     $_SESSION["role"] = $user["role"];
 
-                    // Get IP address
                     $ip_address = $_SERVER["REMOTE_ADDR"];
-
-                    // Get PHP session ID
                     $session_id = session_id();
 
-                    // Save login session
                     $login_sql = "INSERT INTO login_sessions
                                   (session_id, user_id, login_time, ip_address)
                                   VALUES (?, ?, NOW(), ?)";
@@ -99,7 +89,6 @@ if (!$stmt) {
 
                     mysqli_stmt_close($stmt);
 
-                    // Redirect according to role
                     if ($user["role"] === "resident") {
 
                         header("Location: ../admin-pages/register.php");
@@ -107,7 +96,6 @@ if (!$stmt) {
 
                     } elseif ($user["role"] === "admin") {
 
-                        // Change this later if you have an admin dashboard
                         header("Location: ../admin-pages/register.php");
                         exit();
 
@@ -208,7 +196,7 @@ if (!$stmt) {
 
         <p class="stext">
             Don't have an account ?
-            <a href="#" id="sign">Sign Up</a>
+            <a href="../admin-pages/register.php" id="sign">Sign Up</a>
         </p>
 
     </div>

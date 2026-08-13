@@ -54,14 +54,6 @@ $requests = $result->fetch_all(MYSQLI_ASSOC);
                     placeholder="Search requests..."
                 >
             </div>
-
-            <select id="statusFilter">
-                <option value="all">All Status</option>
-                <option value="pending">Pending</option>
-                <option value="in progress">In Progress</option>
-                <option value="completed">Completed</option>
-            </select>
-
             <a href="add-maintenanceAdmin.php" class="new-btn">
                 <i class="bi bi-plus-lg"></i>
                 New Request
