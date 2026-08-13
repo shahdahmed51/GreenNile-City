@@ -1,7 +1,7 @@
 <?php
 
 $current_page = basename($_SERVER['PHP_SELF']);
-
+require_once "../includes/user-auth.php";
 require_once "../config/connection.php";
 
 include '../includes/header.php';

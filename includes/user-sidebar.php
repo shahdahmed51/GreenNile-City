@@ -249,7 +249,7 @@
 
         </li>
     </ul>
-    <a href="../pages/user.php" class="user-profile">
+    <a href="../user-pages/user.php" class="user-profile">
 
       <img src="../assets/images/profileimg.jfif" alt="Profileomg.jfif">
 

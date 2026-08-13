@@ -2,6 +2,7 @@
 $current_page = basename($_SERVER['PHP_SELF']);
 include '../includes/header.php'; 
 include '../includes/navbar.php'; 
+require_once "../includes/user-auth.php";
 include '../includes/user-sidebar.php'; 
 require_once '../config/connection.php'; 
 

@@ -1,3 +1,6 @@
+<?php
+require_once "../includes/admin-auth.php";
+?>
 <?php require '../config/connection.php'; ?>
 
 <?php

@@ -1,6 +1,7 @@
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
-<?php include '../includes/user-sidebar.php'; ?>
+<?php include '../includes/user-sidebar.php';
+require_once "../includes/user-auth.php"; ?>
 
 <div class="main-content">
     <div class="container-fluid py-4">

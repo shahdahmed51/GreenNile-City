@@ -1,4 +1,7 @@
 <?php
+require_once "../includes/admin-auth.php";
+?>
+<?php
 $residentId = $_GET['id'] ?? 1;
 $residents = [
     1 => [

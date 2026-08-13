@@ -1,4 +1,5 @@
 <?php
+require_once "../includes/user-auth.php";
 $current_page = basename($_SERVER['PHP_SELF']);
 
 include("../includes/header.php");

@@ -2,7 +2,7 @@
 session_start();
 
 $current_page = basename($_SERVER['PHP_SELF']);
-
+require_once "../includes/user-auth.php";
 include("../includes/header.php");
 include("../includes/user-sidebar.php");
 require_once "../config/connection.php";

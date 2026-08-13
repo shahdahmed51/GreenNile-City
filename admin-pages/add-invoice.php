@@ -3,6 +3,8 @@
 require_once "../config/connection.php";
 
 
+require_once "../includes/admin-auth.php";
+
 // =====================================
 // Add Invoice
 // =====================================

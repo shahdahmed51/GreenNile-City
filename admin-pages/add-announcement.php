@@ -1,5 +1,7 @@
 <?php require '../config/connection.php'; ?>
-
+<?php
+require_once "../includes/admin-auth.php";
+?>
 <?php
 $error = "";
 

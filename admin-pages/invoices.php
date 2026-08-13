@@ -1,4 +1,7 @@
 <?php
+require_once "../includes/admin-auth.php";
+?>
+<?php
 
 $current_page = basename($_SERVER['PHP_SELF']);
 

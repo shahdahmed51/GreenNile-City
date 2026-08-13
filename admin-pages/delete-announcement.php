@@ -1,4 +1,7 @@
 <?php
+require_once "../includes/admin-auth.php";
+?>
+<?php
 require '../config/connection.php';
 
 $id = $_GET['id'] ?? 0;

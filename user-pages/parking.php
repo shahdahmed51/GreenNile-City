@@ -3,7 +3,7 @@
 session_start();
 
 require_once "../config/connection.php";
-
+require_once "../includes/user-auth.php";
 
 // ========================================
 // CHECK LOGIN
