@@ -1,7 +1,7 @@
 <?php
 require_once "../includes/user-auth.php";
 
-session_start();
+// session_start();
 
 $current_page = basename($_SERVER['PHP_SELF']);
 

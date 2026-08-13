@@ -123,17 +123,12 @@ include '../includes/header.php'; ?>
                             </div>
 
                             <!-- Confirm Payment -->
-                            <!-- <button
+                            <button
                                 type="submit"
                                 class="btn btn-success w-100"
                             >
                                 Confirm Payment
-                            </button> -->
-                             <a href="payment-success.php"
-                             class="btn btn-success w-100">
-                             Confirm Payment
-
-                             </a>
+                            </button>
                         </form>
 
                     </div>

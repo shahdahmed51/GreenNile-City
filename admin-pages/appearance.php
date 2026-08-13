@@ -2,7 +2,7 @@
 require_once "../includes/admin-auth.php";
 ?>
 <?php
-session_start();
+// session_start();
 require_once '../config/connection.php';
 
 if (!isset($_SESSION['user_id'])) {

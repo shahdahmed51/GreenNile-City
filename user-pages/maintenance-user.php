@@ -1,19 +1,24 @@
 <?php
 require_once "../includes/user-auth.php";
 
-session_start();
+// تأكد إن الجلسة اتبدأت مرة واحدة بس (تفادي تعارض مع user-auth.php)
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-$current_page = basename($_SERVER['PHP_SELF']);
-include("../includes/header.php");
-include("../includes/user-sidebar.php");
 require_once "../config/connection.php";
 
+// تحقق من تسجيل الدخول *قبل* أي include بيطبع HTML
 if (!isset($_SESSION["user_id"]) || !isset($_SESSION["resident_id"])) {
     header("Location: login.php");
     exit();
 }
 
 $resident_id = $_SESSION["resident_id"];
+$current_page = basename($_SERVER['PHP_SELF']);
+
+include("../includes/header.php");
+include("../includes/user-sidebar.php");
 
 $sql = "SELECT
             mr.request_id,
