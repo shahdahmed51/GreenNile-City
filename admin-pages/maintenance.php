@@ -1,11 +1,17 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $current_page = basename($_SERVER['PHP_SELF']);
 
 include("../includes/header.php");
 include("../includes/sidebar.php");
 require_once "../config/connection.php";
 
-// Get maintenance requests from database
 $sql = "SELECT 
             request_id,
             resident_id,
@@ -27,7 +33,7 @@ if (!$result) {
 $requests = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
-<link rel="stylesheet" href="/GreenNile-City/assets/css/maintenance.css">
+<link rel="stylesheet" href="/GREENNILE-CITY/assets/css/maintenance.css">
 
 <div class="main-content">
 
@@ -63,7 +69,6 @@ $requests = $result->fetch_all(MYSQLI_ASSOC);
 
         </div>
 
-
         <table class="table table-hover align-middle text-center">
 
             <thead>
@@ -86,46 +91,34 @@ $requests = $result->fetch_all(MYSQLI_ASSOC);
 
                         <tr>
 
-                            <!-- ID -->
                             <td>
-                                <?= htmlspecialchars($request['request_id']) ?>
+                                MR<?= str_pad($request['request_id'], 3, "0", STR_PAD_LEFT) ?>
                             </td>
 
-
-                            <!-- Title -->
                             <td>
                                 <?= htmlspecialchars($request['title']) ?>
                             </td>
 
-                            <!-- Priority -->
                             <td>
                                 <span class="priority <?= strtolower(htmlspecialchars($request['priority'])) ?>">
                                     <?= htmlspecialchars($request['priority']) ?>
                                 </span>
                             </td>
 
-
-                            <!-- Status -->
                             <td>
                                 <span class="status <?= strtolower(str_replace(' ', '-', htmlspecialchars($request['status']))) ?>">
                                     <?= htmlspecialchars($request['status']) ?>
                                 </span>
                             </td>
 
-
-                            <!-- Date -->
                             <td>
-                                <?= htmlspecialchars($request['created_at']) ?>
+                                <?= date("d M Y", strtotime($request['created_at'])) ?>
                             </td>
 
-
-                            <!-- Assigned To -->
                             <td>
-                                <?= htmlspecialchars($request['assigned_to'] ?? '-') ?>
+                                <?= htmlspecialchars($request['assigned_to'] ?? 'Not Assigned') ?>
                             </td>
 
-
-                            <!-- Actions -->
                             <td>
 
                                 <a
@@ -135,12 +128,13 @@ $requests = $result->fetch_all(MYSQLI_ASSOC);
                                     <i class="bi bi-eye"></i>
                                 </a>
 
-                                 <a
-    href="edit-maintenance.php?id=<?= urlencode($request['request_id']) ?>"
-    class="action-btn edit"
->
-    <i class="bi bi-pencil"></i>
-</a>
+                                <a
+                                    href="edit-maintenance.php?id=<?= urlencode($request['request_id']) ?>"
+                                    class="action-btn edit"
+                                >
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
                                 <a
                                     href="delete-maintenance.php?id=<?= urlencode($request['request_id']) ?>"
                                     class="action-btn delete"
@@ -158,7 +152,7 @@ $requests = $result->fetch_all(MYSQLI_ASSOC);
                 <?php else: ?>
 
                     <tr>
-                        <td colspan="8">
+                        <td colspan="7">
                             No maintenance requests found.
                         </td>
                     </tr>
@@ -173,7 +167,6 @@ $requests = $result->fetch_all(MYSQLI_ASSOC);
 
 </div>
 
-
-<script src="/GreenNile-City/assets/js/maintenance.js"></script>
+<script src="/GREENNILE-CITY/assets/js/maintenance.js"></script>
 
 <?php include("../includes/footer.php"); ?>
