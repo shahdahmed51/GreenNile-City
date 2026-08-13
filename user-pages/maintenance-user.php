@@ -1,10 +1,14 @@
 <?php
 require_once "../includes/user-auth.php";
 
+<<<<<<< HEAD
 // تأكد إن الجلسة اتبدأت مرة واحدة بس (تفادي تعارض مع user-auth.php)
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+=======
+// session_start();
+>>>>>>> 785fa620cd29d9a64cf6845b578d6ed892758a0d
 
 require_once "../config/connection.php";
 
