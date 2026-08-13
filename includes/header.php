@@ -1,3 +1,21 @@
+<?php if (session_status() === PHP_SESSION_NONE) { session_start(); } ?>
+
+<?php
+$theme_class = '';
+
+if (isset($_SESSION['user_id']) && isset($conn)) {
+    $stmt = mysqli_prepare($conn, "SELECT theme FROM appearance_settings WHERE user_id = ?");
+    mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($result);
+
+    if ($row && $row['theme'] === 'Dark') {
+        $theme_class = 'dark-mode';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,8 +49,7 @@
 <link rel="stylesheet" href="../assets/css/add-resident.css">
 <link rel="stylesheet" href="../assets/css/invoice.css">
 <link rel="stylesheet" href="../assets/css/announcement.css">
-<!-- <link rel="stylesheet" href="../assets/css/resident-details.css"> -->
+<link rel="stylesheet" href="/GreenNile-City/assets/css/dark-mode.css">
 
-<!-- <link rel="stylesheet" href="/GreenNile-City/assets/css/parking.css">
-<link rel="stylesheet" href="/GreenNile-City/assets/css/setting.css"> -->
 </head>
+<body class="<?= $theme_class ?>">
