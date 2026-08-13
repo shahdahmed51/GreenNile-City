@@ -1,128 +1,310 @@
-<?php $current_page = basename($_SERVER['PHP_SELF']);?>
-<?php include("../includes/header.php"); 
+<?php
+session_start();
+
+$current_page = basename($_SERVER['PHP_SELF']);
+
+include("../includes/header.php");
+include("../includes/user-sidebar.php");
+require_once "../config/connection.php";
+
+
+/* =========================
+   Check Login
+========================= */
+
+if (!isset($_SESSION["user_id"]) || !isset($_SESSION["resident_id"])) {
+
+    header("Location: login.php");
+    exit();
+
+}
+
+$resident_id = $_SESSION["resident_id"];
+
+
+/* =========================
+   Get User Maintenance Requests
+========================= */
+
+$sql = "SELECT
+            mr.request_id,
+            mr.title,
+            mr.priority,
+            mr.status,
+            mr.created_at,
+            mr.assigned_to
+        FROM maintenance_requests mr
+        WHERE mr.resident_id = ?
+        ORDER BY mr.created_at DESC";
+
+
+$stmt = $conn->prepare($sql);
+
+if (!$stmt) {
+
+    die("Database Error: " . $conn->error);
+
+}
+
+$stmt->bind_param("i", $resident_id);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+
 ?>
-<?php include("../includes/user-sidebar.php"); ?>
-<link rel="stylesheet" href="/GREENNILE-CITY/assets/css/maintenance.css">
-     <div class="main-content">
 
-           <div class="page-header">
-            <h2> My Maintenance Requests</h2>
-            <p>View and track your maintenance requests.</p>
-           </div>
+<link
+    rel="stylesheet"
+    href="/GREENNILE-CITY/assets/css/maintenance.css"
+>
 
-           <div class="maintenance-card">
 
-            <div class="top-bar">
+<div class="main-content">
 
-                <div class="search-box">
-                    <i class="bi bi-search"></i>
-                    <input type="text" id="searchInput" placeholder="Search requests...">
-                </div>
 
-                <select name="" id="statusFilter">
-                    <option value="all">All Status</option>
-                    <option value="pending">Pending</option>
-                    <option value="in progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                </select>
+    <!-- =========================
+         Page Header
+    ========================== -->
 
-                <a href="add-maintenanceUser.php" class="new-btn">
-                    <i class="bi bi-plus-lg"></i>
-                     New Request
-               </a>
-            </div>
+    <div class="page-header">
 
-            <?php
-            $requests =[
-                [
-                    "id"=>"MR001",
-                    "title"=>"Water leakege in kitchen",
-                    "category"=>"plumbing",
-                    "priority"=>"High",
-                    "status"=>"In Progress",
-                    "date"=>"12 May 2026",
-                    "assigned"=>"Ahmed Hassen"
-                ],
-                [
-                     "id" => "MR002",
-                     "title" => "AC not cooling",
-                     "category" => "Electrical",
-                     "priority" => "Medium",
-                     "status" => "Pending",
-                     "date" => "11 May 2026",
-                     "assigned" => "Habiba Emad"
-                ],
-                [
-                     "id" => "MR003",
-                     "title" => "Parking gate not working",
-                     "category" => "General",
-                     "priority" => "High",
-                     "status" => "In Progress",
-                    "date" => "11 May 2026",
-                     "assigned" => "Karim Ahmed"
-                ],
-                [
-                    "id" => "MR004",
-                    "title" => "Light flickering",
-                    "category" => "Electrical",
-                    "priority" => "Low",
-                    "status" => "Completed",
-                    "date" => "10 May 2026",
-                    "assigned" => "Nour Ali"
-               ],
-               [
-                    "id" => "MR005",
-                    "title" => "Elevator not working",
-                    "category" => "Mechanical",
-                    "priority" => "High",
-                    "status" => "Pending",
-                    "date" => "13 May 2026",
-                    "assigned" => "Nada Mohmed"
-            ]
-           ];
-            ?>
+        <h2>
+            My Maintenance Requests
+        </h2>
 
-             <table class="table table-hover align-middle text-center">
-                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Priority</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Assigned To</th>
-                            <th>Action</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <?php foreach($requests as $request):?>
-                            <tr>
-                                <td><?=$request["id"]?></td>
-                                <td><?=$request["title"]?></td>
-                                <td><?=$request["category"]?></td>
-                                <td>
-                                    <span class="priority <?=strtolower($request["priority"])?>">
-                                         <?=$request["priority"]?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="status <?=strtolower(str_replace(' ','-',$request["status"]))?>">
-                                           <?=$request["status"]?>
-                                    </span>
-                                </td>
-                                <td><?=$request["date"]?></td>
-                                <td><?=$request["assigned"]?></td>
-                                <td>
-                                    <a href="maintenanceReq-user.php?id=<?=$request['id']?>" class="action-btn view">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                     </tbody>
-             </table>
-           </div>
-     </div>
- <script src="/GreenNile-City/assets/js/maintenance.js"></script>
- <?php include("../includes/footer.php"); ?>
+        <p>
+            View and track your maintenance requests.
+        </p>
+
+    </div>
+
+
+
+    <div class="maintenance-card">
+
+
+        <!-- =========================
+             Top Bar
+        ========================== -->
+
+        <!-- =========================
+             Requests Table
+        ========================== -->
+
+        <table
+            class="table table-hover align-middle text-center"
+        >
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Title</th>
+
+                    <th>Priority</th>
+
+                    <th>Status</th>
+
+                    <th>Date</th>
+
+                    <th>Assigned To</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+            <?php if ($result->num_rows > 0): ?>
+
+
+                <?php while ($request = $result->fetch_assoc()): ?>
+
+
+                    <tr>
+
+
+                        <!-- ID -->
+
+                        <td>
+
+                            MR<?= str_pad(
+                                $request["request_id"],
+                                3,
+                                "0",
+                                STR_PAD_LEFT
+                            ) ?>
+
+                        </td>
+
+
+
+                        <!-- Title -->
+
+                        <td>
+
+                            <?= htmlspecialchars(
+                                $request["title"]
+                            ) ?>
+
+                        </td>
+
+
+
+                        <!-- Priority -->
+
+                        <td>
+
+                            <span
+                                class="priority <?= strtolower(
+                                    $request["priority"]
+                                ) ?>"
+                            >
+
+                                <?= htmlspecialchars(
+                                    $request["priority"]
+                                ) ?>
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- Status -->
+
+                        <td>
+
+                            <span
+                                class="status <?= strtolower(
+                                    str_replace(
+                                        " ",
+                                        "-",
+                                        $request["status"]
+                                    )
+                                ) ?>"
+                            >
+
+                                <?= htmlspecialchars(
+                                    $request["status"]
+                                ) ?>
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- Date -->
+
+                        <td>
+
+                            <?= date(
+                                "d M Y",
+                                strtotime(
+                                    $request["created_at"]
+                                )
+                            ) ?>
+
+                        </td>
+
+
+
+                        <!-- Assigned -->
+
+                        <td>
+
+                            <?php if (!empty($request["assigned_to"])): ?>
+
+                                <?= htmlspecialchars(
+                                    $request["assigned_to"]
+                                ) ?>
+
+                            <?php else: ?>
+
+                                <span style="color:#999;">
+                                    Not Assigned
+                                </span>
+
+                            <?php endif; ?>
+
+                        </td>
+
+
+
+                        <!-- Action -->
+
+                        <td>
+
+                            <a
+                                href="maintenanceReq-user.php?id=<?= $request["request_id"] ?>"
+                                class="action-btn view"
+                            >
+
+                                <i class="bi bi-eye"></i>
+
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+
+
+                <?php endwhile; ?>
+
+
+            <?php else: ?>
+
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        style="padding:40px; color:#777;"
+                    >
+
+                        <i
+                            class="bi bi-tools"
+                            style="font-size:30px;"
+                        ></i>
+
+                        <br><br>
+
+                        You don't have any maintenance requests yet.
+
+                    </td>
+
+                </tr>
+
+
+            <?php endif; ?>
+
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+</div>
+
+
+<script src="/GREENNILE-CITY/assets/js/maintenance.js"></script>
+
+
+<?php
+
+$stmt->close();
+
+include("../includes/footer.php");
+
+?>
