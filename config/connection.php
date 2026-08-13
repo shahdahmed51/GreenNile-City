@@ -3,8 +3,12 @@
 $host = "localhost";
 $username = "root";
 $password = "";
+<<<<<<< HEAD
 $database = "greennile";
 
+=======
+$database = "greennile"; 
+>>>>>>> 40803106bbc07b6f92d840af7a2618fa0df7d5c7
 $conn = mysqli_connect($host, $username, $password, $database);
 
 if (!$conn) {

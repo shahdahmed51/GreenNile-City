@@ -50,7 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     $error = "Your account is not active.";
 
+<<<<<<< HEAD
                 } elseif ($password !== $user["password"]) {
+=======
+                } elseif (!password_verify($password, $user["password"]) && $password !== $user["password"]) {
+>>>>>>> 40803106bbc07b6f92d840af7a2618fa0df7d5c7
 
                     $error = "Invalid email or password.";
 
@@ -96,7 +100,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     } elseif ($user["role"] === "admin") {
 
+<<<<<<< HEAD
                         header("Location: ../admin-pages/settings.php");
+=======
+                        header("Location: ../admin-pages/register.php");
+>>>>>>> 40803106bbc07b6f92d840af7a2618fa0df7d5c7
                         exit();
 
                     } else {
@@ -196,7 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <p class="stext">
             Don't have an account ?
-            <a href="#" id="sign">Sign Up</a>
+            <a href="../admin-pages/register.php" id="sign">Sign Up</a>
         </p>
 
     </div>
