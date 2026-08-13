@@ -254,7 +254,7 @@
       <img src="../assets/images/profileimg.jfif" alt="Profileomg.jfif">
 
       <div class="user-info">
-        <h4>user</h4>
+        <h4>User</h4>
         <span>View profile</span>
       </div>
 
