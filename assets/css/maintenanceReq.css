@@ -8,8 +8,17 @@
     background:#f7f9fc;
     min-height:100vh;
 }
-.page-header{
-    margin-bottom:20px;
+.page-header {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.page-header h2 {
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    margin: 0;
 }
 .back-btn{
     display:inline-flex;

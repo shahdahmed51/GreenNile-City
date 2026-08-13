@@ -1,320 +1,605 @@
 <?php
-$requestId = $_GET['id'] ?? '';
-$requests = [
-    [
-        "id"=>"MR001",
-        "title"=>"Water leakage in kitchen",
-        "resident"=>"Ahmed Hassan",
-        "apartment"=>"A-205",
-        "category"=>"Plumbing",
-        "priority"=>"High",
-        "status"=>"In Progress",
-        "date"=>"12 May 2026",
-        "assigned"=>"Ahmed Hassan",
-        "phone"=>"+20 100 123 4567",
-        "email"=>"ahmed@greennile.com",
-        "description"=>"Water leakage has been reported under the kitchen sink.",
-         "image" =>"/GREENNILE-CITY/assets/images/waterReq.jpeg"
-    ],
-    [
-        "id"=>"MR002",
-        "title"=>"AC not cooling",
-        "resident"=>"Habiba Emad",
-        "apartment"=>"B-110",
-        "category"=>"Electrical",
-        "priority"=>"Medium",
-        "status"=>"Pending",
-        "date"=>"11 May 2026",
-        "assigned"=>"Mohamed Ali",
-        "phone"=>"+20 100 789 123 4567",
-        "email"=>"mohamed@greennile.com",
-        "description"=>"The air conditioner is not cooling properly.",
-        "image" =>"/GREENNILE-CITY/assets/images/conditionerReq.jpeg"
-    ],
-    [
-        "id"=>"MR003",
-        "title"=>"Parking gate not working",
-        "resident"=>"Karim Ahmed",
-        "apartment"=>"C-305",
-        "category"=>"General",
-        "priority"=>"High",
-        "status"=>"In Progress",
-        "date"=>"11 May 2026",
-        "assigned"=>"Ali Mohmed",
-        "phone"=>"+20 100 891 234 5678",
-        "email"=>"ali@greennile.gom",
-        "description"=>"Main parking gate does not open with access cards.",
-        "image" =>"/GREENNILE-CITY/assets/images/parkingReq.jpeg"
-    ],
-    [
-        "id"=>"MR004",
-        "title"=>"Light flickering",
-        "resident"=>"Nour Ali",
-        "apartment"=>"A-102",
-        "category"=>"Electrical",
-        "priority"=>"Low",
-        "status"=>"Completed",
-        "date"=>"10 May 2026",
-        "assigned"=>"Youssef Samir",
-        "phone"=>"+20 100 912 345 6789",
-        "email"=>"youssef@greennile.com",
-        "description"=>"Bedroom light keeps flickering.",
-        "image" =>"/GREENNILE-CITY/assets/images/lightReq.jpeg"
-    ],
-    [
-        "id"=>"MR005",
-        "title"=>"Elevator not working",
-        "resident"=>"Nada Mohamed",
-        "apartment"=>"D-402",
-        "category"=>"Mechanical",
-        "priority"=>"High",
-        "status"=>"Pending",
-        "date"=>"13 May 2026",
-        "assigned"=>"Ahmed Mostafa",
-        "phone"=>"+20 100 125 378 9647",
-        "email"=>"ahmed@greennile.com",
-        "description"=>"Elevator has stopped working since morning.",
-        "image" =>"/GREENNILE-CITY/assets/images/elevatorReq.jpeg"
-    ]
-];
-$request = null;
-foreach($requests as $item){
-    if($item["id"] == $requestId){
-        $request = $item;
-        break;
-    }
+
+require_once "../config/connection.php";
+
+$current_page = basename($_SERVER['PHP_SELF']);
+
+
+/* =========================
+   Get Request ID
+========================= */
+
+$requestId = $_GET['id'] ?? null;
+
+if (!$requestId) {
+    die("Maintenance request ID is missing.");
 }
-if(!$request){
-  die("Request Not Found");
- }
+
+
+/* =========================
+   Get Request + Resident
+========================= */
+
+$sql = "SELECT
+            mr.request_id,
+            mr.resident_id,
+            mr.title,
+            mr.description,
+            mr.priority,
+            mr.status,
+            mr.created_at,
+            mr.assigned_to,
+
+            r.full_name,
+            r.phone,
+            r.email,
+            r.address,
+            r.building,
+            r.unit_number
+
+        FROM maintenance_requests mr
+
+        LEFT JOIN residents r
+            ON mr.resident_id = r.resident_id
+
+        WHERE mr.request_id = ?";
+
+
+$stmt = $conn->prepare($sql);
+
+if (!$stmt) {
+    die("Database Error: " . $conn->error);
+}
+
+
+$stmt->bind_param("i", $requestId);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+
+if ($result->num_rows === 0) {
+    die("Maintenance request not found.");
+}
+
+
+$request = $result->fetch_assoc();
+
+$stmt->close();
+
+
+/* =========================
+   Header / Sidebar
+========================= */
+
+include("../includes/header.php");
+
 ?>
-<?php include("../includes/header.php"); 
-?>
-<link rel="stylesheet" href="/GREENNILE-CITY/assets/css/maintenanceReq.css">
-   
+
+<link rel="stylesheet" href="/GreenNile-City/assets/css/maintenanceReq.css">
+
+
 <div class="main-content-full">
-    <a href="maintenance.php" class="back-btn">
-        <i class="bi bi-arrow-left"></i>
-        Back to Maintenance Requests
-    </a>
+
+
+    <!-- =========================
+         Page Header
+    ========================== -->
 
     <div class="page-header">
+
         <h2>Maintenance Request Details</h2>
-        <p>Request ID : <strong><?=$requestId?></strong></p>
+
+        <p>
+            View maintenance request information.
+        </p>
+
+        <a href="maintenance.php" class="back-btn">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Back
+
+        </a>
+
     </div>
+
+
+
+    <!-- =========================
+         Main Details Container
+    ========================== -->
 
     <div class="details-container">
-        <!---left side--->
+
+
+        <!-- =========================
+             LEFT SIDE
+        ========================== -->
+
         <div class="left-side">
+
+
+            <!-- Request Card -->
+
             <div class="request-card">
+
                 <div class="card-title">
-                    <h3>Request Information</h3>
+
+                    <h3>
+                        Request #<?= htmlspecialchars($request['request_id']) ?>
+                    </h3>
+
                 </div>
+
+
+                <h3 style="margin-bottom: 25px;">
+
+                    <?= htmlspecialchars($request['title']) ?>
+
+                </h3>
+
+
+                <!-- Request Info -->
+
                 <div class="request-info">
+
+
+                    <!-- Priority -->
+
                     <div class="info-box">
-                        <span>Request ID</span>
-                        <p><?=$request["id"]?></p>
-                    </div>
-                    <div class="info-box">
-                        <span>Resident</span>
-                        <p><?=$request["resident"]?></p>
-                    </div>
-                    <div class="info-box">
-                        <span>Apartment</span>
-                        <p><?=$request["apartment"]?></p>
-                    </div>
-                    <div class="info-box">
-                        <span>Category</span>
-                        <p><?=$request["category"]?></p>
-                    </div>
-                    <div class="info-box">
+
                         <span>Priority</span>
-                       <span class="priority <?= strtolower($request['priority']) ?>">
-                       <?= $request["priority"] ?>
-                       </span>
+
+                        <span
+                            class="priority <?= strtolower(
+                                htmlspecialchars($request['priority'])
+                            ) ?>"
+                        >
+
+                            <?= htmlspecialchars($request['priority']) ?>
+
+                        </span>
+
                     </div>
+
+
+                    <!-- Status -->
+
                     <div class="info-box">
+
                         <span>Status</span>
-                       <span class="status <?= strtolower(str_replace(' ','-',$request['status'])) ?>">
-                       <?= $request["status"] ?>
-                       </span>
+
+                        <span
+                            class="status <?= strtolower(
+                                str_replace(
+                                    ' ',
+                                    '-',
+                                    htmlspecialchars($request['status'])
+                                )
+                            ) ?>"
+                        >
+
+                            <?= htmlspecialchars($request['status']) ?>
+
+                        </span>
+
                     </div>
+
+
+                    <!-- Created Date -->
+
+                    <div class="info-box">
+
+                        <span>Created Date</span>
+
+                        <p>
+
+                            <?= htmlspecialchars(
+                                $request['created_at']
+                            ) ?>
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- Assigned To -->
+
+                    <div class="info-box">
+
+                        <span>Assigned To</span>
+
+                        <p>
+
+                            <?= !empty($request['assigned_to'])
+                                ? htmlspecialchars($request['assigned_to'])
+                                : '-'
+                            ?>
+
+                        </p>
+
+                    </div>
+
+
                 </div>
 
-                    <div class="description">
-                       <h4>Description</h4>
-                       <p><?= $request["description"] ?></p>
-                    </div>
-                    <?php if(!empty($request["image"])) { ?>
-                    <div class="request-images">
-                    <h4>Request Image</h4>
-                   <div class="images-grid">
-                  <img src="<?= $request["image"] ?>" alt="Request Image">
+
+                <!-- Description -->
+
+                <div class="description">
+
+                    <h4>
+                        Description
+                    </h4>
+
+                    <p>
+
+                        <?= nl2br(
+                            htmlspecialchars(
+                                $request['description']
+                            )
+                        ) ?>
+
+                    </p>
+
                 </div>
-                </div>
-               <?php } ?>
+
             </div>
-          </div>
 
-          <!-----middle------>
-           <div class="middle-side">
-            <div class="technician-card">
-                    <div class="card-title">
-                          <h3>Assigned Technicain</h3>
-                    </div>
-                    <div class="technician-info">
-                       <div class="tech-avatar">
-                         <i class="bi bi-person-fill"></i>
-                        </div>
-                         <h4><?= $request["assigned"] ?></h4>
-                          <p class="job-title">
-                                  Maintenance Technician
-                          </p>
-                          <div class="tech-details">
-                         <div class="detail-row">
-                           <i class="bi bi-telephone-fill"></i>
-                           <span><?= $request["phone"] ?></span>
-                         </div>
-                         <div class="detail-row">
-                          <i class="bi bi-envelope-fill"></i>
-                          <span><?= $request["email"] ?></span>
-                         </div>
-                        </div>
-                        <button class="contact-btn">
-                           Contact Technician
-                            </button>
-                        </div>
-                </div>
-                <div class="timeline-card">
-                    <div class="card-title">
-                         <h3>Timeline</h3>
-                    </div>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                         <div class="timeline-dot"></div>
 
-                          <div class="timeline-content">
-                                 <h5>Request Submitted</h5>
-                                 <small><?= $request["date"] ?></small>
-                            </div>
-                        </div>
-                      <div class="timeline-item">
-                         <div class="timeline-dot active"></div>
-                         <div class="timeline-content">
-                             <h5>Technician Assigned</h5>
-                             <small>Same Day</small>
-                         </div>
-                        </div>
-                        <div class="timeline-item">
-                           <div class="timeline-dot"></div> 
-                          <div class="timeline-content">
-                              <h5>Status</h5>
-                             <small><?= $request["status"] ?></small>
-                           </div>
-                        </div>
-                    </div>
-                </div>
-           </div>
 
-             <!----right side--->
-             <div class="right-side">
-                 <div class="update-card">
+            <!-- Update Card -->
+
+            <div class="update-card">
+
                 <div class="card-title">
-                     <h3>Update Status</h3>
+
+                    <h3>
+                        Request Information
+                    </h3>
+
                 </div>
-                <form action="" method="post">
-
-    <div class="form-group">
-        <label>Update Status</label>
-
-        <select name="status" class="form-control">
-
-            <option value="Pending"
-                <?= $request["status"] == "Pending" ? "selected" : "" ?>>
-                Pending
-            </option>
-
-            <option value="In Progress"
-                <?= $request["status"] == "In Progress" ? "selected" : "" ?>>
-                In Progress
-            </option>
-
-            <option value="Completed"
-                <?= $request["status"] == "Completed" ? "selected" : "" ?>>
-                Completed
-            </option>
-
-        </select>
-    </div>
 
 
-    <div class="form-group">
-
-        <label>Assign Technician</label>
-
-        <select name="technician" class="form-control">
-
-            <option value="Ahmed Hassan"
-                <?= $request["assigned"] == "Ahmed Hassan" ? "selected" : "" ?>>
-                Ahmed Hassan
-            </option>
-
-            <option value="Mohamed Ali"
-                <?= $request["assigned"] == "Mohamed Ali" ? "selected" : "" ?>>
-                Mohamed Ali
-            </option>
-
-            <option value="Omar Khaled"
-                <?= $request["assigned"] == "Omar Khaled" ? "selected" : "" ?>>
-                Omar Khaled
-            </option>
-
-            <option value="Youssef Samir"
-                <?= $request["assigned"] == "Youssef Samir" ? "selected" : "" ?>>
-                Youssef Samir
-            </option>
-
-            <option value="Ahmed Mostafa"
-                <?= $request["assigned"] == "Ahmed Mostafa" ? "selected" : "" ?>>
-                Ahmed Mostafa
-            </option>
-
-        </select>
-
-    </div>
+                <div class="request-info">
 
 
-    <div class="form-group">
+                    <div class="info-box">
 
-        <label>Notes</label>
+                        <span>Request ID</span>
 
-        <textarea
-            name="notes"
-            class="form-control"
-            rows="5"
-            placeholder="Write your notes here..."
-        ></textarea>
+                        <p>
+                            #<?= htmlspecialchars(
+                                $request['request_id']
+                            ) ?>
+                        </p>
 
-    </div>
+                    </div>
 
 
-    <div class="btn-group">
+                    <div class="info-box">
 
-        <button type="submit" name="save_changes" class="save-btn">
-            <i class="bi bi-check-circle"></i>
-            Save Changes
-        </button>
+                        <span>Resident ID</span>
 
-        <button type="button" class="close-btn">
-            <i class="bi bi-x-circle"></i>
-            Close Request
-        </button>
+                        <p>
+                            <?= htmlspecialchars(
+                                $request['resident_id']
+                            ) ?>
+                        </p>
 
-    </div>
+                    </div>
 
-</form>
+
+                    <div class="info-box">
+
+                        <span>Category</span>
+
+                        <p>-</p>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span>Apartment</span>
+
+                        <p>
+
+                            <?php
+
+                            $building = $request['building'] ?? '';
+                            $unit = $request['unit_number'] ?? '';
+
+                            if ($building || $unit) {
+
+                                echo htmlspecialchars(
+                                    $building . " - " . $unit
+                                );
+
+                            } else {
+
+                                echo "-";
+
+                            }
+
+                            ?>
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
             </div>
-             </div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             MIDDLE SIDE
+        ========================== -->
+
+        <div class="middle-side">
+
+
+            <div class="card-title">
+
+                <h3>
+                    Resident Information
+                </h3>
+
+            </div>
+
+
+            <div class="technician-info">
+
+
+                <div class="tech-avatar">
+
+                    <i class="bi bi-person"></i>
+
+                </div>
+
+
+                <h4>
+
+                    <?= !empty($request['full_name'])
+                        ? htmlspecialchars($request['full_name'])
+                        : '-'
+                    ?>
+
+                </h4>
+
+
+                <p class="job-title">
+                    Resident
+                </p>
+
+
+                <div class="tech-details">
+
+
+                    <div class="detail-row">
+
+                        <i class="bi bi-telephone"></i>
+
+                        <span>
+
+                            <?= !empty($request['phone'])
+                                ? htmlspecialchars($request['phone'])
+                                : '-'
+                            ?>
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <i class="bi bi-envelope"></i>
+
+                        <span>
+
+                            <?= !empty($request['email'])
+                                ? htmlspecialchars($request['email'])
+                                : '-'
+                            ?>
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <i class="bi bi-building"></i>
+
+                        <span>
+
+                            <?php
+
+                            if ($building || $unit) {
+
+                                echo "Building "
+                                    . htmlspecialchars($building)
+                                    . " - "
+                                    . htmlspecialchars($unit);
+
+                            } else {
+
+                                echo "-";
+
+                            }
+
+                            ?>
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <i class="bi bi-geo-alt"></i>
+
+                        <span>
+
+                            <?= !empty($request['address'])
+                                ? htmlspecialchars($request['address'])
+                                : '-'
+                            ?>
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             RIGHT SIDE
+        ========================== -->
+
+        <div class="right-side">
+
+
+            <!-- Technician Card -->
+
+            <div class="middle-side technician-card">
+
+                <div class="card-title">
+
+                    <h3>
+                        Assigned Technician
+                    </h3>
+
+                </div>
+
+
+                <div class="technician-info">
+
+
+                    <div class="tech-avatar">
+
+                        <i class="bi bi-person-gear"></i>
+
+                    </div>
+
+
+                    <h4>
+
+                        <?= !empty($request['assigned_to'])
+                            ? htmlspecialchars($request['assigned_to'])
+                            : 'Not Assigned'
+                        ?>
+
+                    </h4>
+
+
+                    <p class="job-title">
+                        Maintenance Technician
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Timeline -->
+
+            <div class="middle-side timeline-card">
+
+                <div class="card-title">
+
+                    <h3>
+                        Request Timeline
+                    </h3>
+
+                </div>
+
+
+                <div class="timeline">
+
+
+                    <div class="timeline-item">
+
+                        <div class="timeline-dot active"></div>
+
+
+                        <div class="timeline-content">
+
+                            <h5>
+                                Request Created
+                            </h5>
+
+                            <small>
+
+                                <?= htmlspecialchars(
+                                    $request['created_at']
+                                ) ?>
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="timeline-item">
+
+                        <div class="timeline-dot
+                            <?= strtolower($request['status']) !== 'pending'
+                                ? 'active'
+                                : ''
+                            ?>">
+                        </div>
+
+
+                        <div class="timeline-content">
+
+                            <h5>
+                                <?= htmlspecialchars(
+                                    $request['status']
+                                ) ?>
+                            </h5>
+
+                            <small>
+                                Current Status
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
     </div>
+
+
 </div>
- <?php include("../includes/footer.php"); ?>
+
+
+<?php include("../includes/footer.php"); ?>
