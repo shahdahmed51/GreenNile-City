@@ -1,7 +1,7 @@
 <?php
+require_once "../includes/user-auth.php";
 
 session_start();
-require_once "../includes/user-auth.php";
 require_once "../config/connection.php";
 
 

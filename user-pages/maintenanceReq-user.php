@@ -1,4 +1,5 @@
 <?php
+require_once "../includes/user-auth.php";
 
 session_start();
 
@@ -6,7 +7,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 require_once "../config/connection.php";
 
-require_once "../includes/user-auth.php";
 /* =========================
    Check Login
 ========================= */

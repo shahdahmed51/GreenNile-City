@@ -1,5 +1,7 @@
-<?php require '../config/connection.php'; 
-require_once "../includes/user-auth.php";?>
+<?php
+ require_once "../includes/user-auth.php";
+ require '../config/connection.php'; 
+?>
 
 <?php
 $id = $_GET['id'] ?? 1;

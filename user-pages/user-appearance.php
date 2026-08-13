@@ -1,7 +1,9 @@
-<?php include '../includes/header.php'; ?>
+<?php 
+require_once "../includes/user-auth.php";
+include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
-<?php include '../includes/user-sidebar.php'; 
-require_once "../includes/user-auth.php";?>
+<?php include '../includes/user-sidebar.php'; ?>
+
 <link rel="stylesheet" href="../assets/css/settings.css">
 <div class="container mt-4">
 

@@ -1,5 +1,7 @@
-<?php include '../includes/header.php'; 
-require_once "../includes/user-auth.php";?>
+<?php
+require_once "../includes/user-auth.php";
+include '../includes/header.php'; 
+?>
 <?php include '../includes/navbar.php'; ?>
 <?php include '../includes/user-sidebar.php'; ?>
 

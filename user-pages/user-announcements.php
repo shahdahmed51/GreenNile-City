@@ -1,5 +1,7 @@
-<?php $current_page = basename($_SERVER['PHP_SELF']);
-require_once "../includes/user-auth.php";?>
+<?php
+require_once "../includes/user-auth.php";
+$current_page = basename($_SERVER['PHP_SELF']);
+?>
 <?php require '../config/connection.php'; ?>
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
